@@ -1,0 +1,6 @@
+<% const pageName = typeof page === "undefined" ? "main" : page %>
+<% const pageTitle = typeof title === "undefined" ? "" : title %>
+<% const comingData = typeof data === "undefined" ? null : data %>
+<%-include('../partials/d-head', {title: pageTitle, user})%>
+<%-include(`pages/${pageName}`, {data: comingData})%>
+<%-include('../partials/d-footer')%>

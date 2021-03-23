@@ -1,0 +1,11 @@
+/* webkit solution */
+::-webkit-input-placeholder { text-align:right; }
+/* mozilla solution */
+input:-moz-placeholder { text-align:right; }
+label{
+    margin: 20px 0 5px 0;
+}
+.text-align-left{
+    direction: ltr;
+    text-align: left;
+}
