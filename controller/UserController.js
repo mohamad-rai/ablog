@@ -24,17 +24,17 @@ exports.all = async (req, res) => {
 exports.login = async (req, res) => {
     try {
         const user = await User.findOne({username: req.body.username});
-        if (!user) return res.json({error: "User Not Found x-x"});
+        if (!user) return res.json({error: "کاربری با این مشخصات پیدا نشد x-x"});
         bcrypt.compare(req.body.password, user.password)
             .then(checkPassword => {
-                if (!checkPassword) return res.json({error: "User Not Found x_x"});
+                if (!checkPassword) return res.json({error: "کاربری با این مشخصات پیدا نشد x_x"});
 
                 req.session.user = user;
                 res.json({result: true});
             })
             .catch(bcryptError => {
                 console.log(bcryptError.message);
-                return res.status(500).json({error: "server error -_-"});
+                return res.status(500).json({error: "خطای سرور -_-"});
             });
     } catch (err) {
         if (err) {

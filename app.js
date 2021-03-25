@@ -17,7 +17,7 @@ app.use(session({
   key: 'user_sid',
   resave: false,
   saveUninitialized: false,
-  cookie: {expires: new Date(Date.now() + Config.EXPIRE_SESSION)}
+  cookie: {maxAge: Config.EXPIRE_SESSION}
 }));
 
 //connect to database
