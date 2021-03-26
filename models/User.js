@@ -39,6 +39,10 @@ const UserSchema = new schema({
         minlength: 6,
         maxlength: 32
     },
+    avatar: {
+        ...defaultSetting,
+        default: "user.png"
+    },
     role: {
         ...defaultSetting,
         enum: ['superAdmin', 'admin', 'blogger'],
