@@ -20,7 +20,7 @@ exports.avatar = (req, res) => {
         try {
             const updatedUser = await User.findByIdAndUpdate(req.session.user._id, {avatar: req.file.filename}, {new: true});
             if(req.session.user.avatar && req.session.user.avatar !== Config.DEFAULT_AVATAR)
-                fs.unlinkSync(path.join(__dirname, '..', 'public', 'assets', 'avatar', req.session.user.avatar));
+                fs.unlinkSync(path.join(__dirname, '..', 'public', 'assets', 'avatars', req.session.user.avatar));
             console.log(updatedUser);
             req.session.user = updatedUser;
             res.json({result: true});

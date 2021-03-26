@@ -67,7 +67,7 @@
                     <div class="text-center m-t-30">
                         <img src="/assets/avatars/<%= data.avatar %>" class="rounded-circle" width="150"/>
                         <h4 class="card-title m-t-10">
-                            <%= (data.gender === "male") ? "داش" : "بانو" %>
+                            <%= (data.gender === "male") ? "آقای" : "بانو" %>
                             <%= data.first_name + " " + data.last_name %>
                         </h4>
                         <h6 class="card-subtitle"><%= data.role %></h6>
@@ -174,67 +174,81 @@
                     <div class="tab-pane fade show active" id="previous-month" role="tabpanel"
                          aria-labelledby="pills-setting-tab">
                         <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-12 border-bottom border-primary">
-                                    <h2>به روزرسانی پروفایل</h2>
+                            <form action="" method="post" id="updateForm">
+                                <div class="row">
+                                    <div class="col-md-12 border-bottom border-primary">
+                                        <h2>به روزرسانی پروفایل</h2>
+                                    </div>
+                                    <div class="col-lg-3 col-md-6">
+                                        <label for="first_name">نام</label>
+                                        <input type="text" class="form-control" id="first_name"
+                                               value="<%= data.first_name %>">
+                                    </div>
+                                    <div class="col-lg-3 col-md-6">
+                                        <label for="last_name">نام خانوادگی</label>
+                                        <input type="text" class="form-control" id="last_name"
+                                               value="<%= data.last_name %>">
+                                    </div>
+                                    <div class="col-lg-3 col-md-6">
+                                        <label for="gender">جنسیت</label>
+                                        <select id="gender" class="form-control">
+                                            <option value="male">مرد</option>
+                                            <option value="female">زن</option>
+                                        </select>
+                                        <input type="hidden" value="<%= data.gender %>" id="genderValue">
+                                    </div>
+                                    <div class="col-lg-3 col-md-6">
+                                        <label for="avatar">آواتار</label>
+                                        <label for="avatar" class="btn btn-dark m-0" id="avatarLabel">
+                                            <i class="mdi mdi-file-image"></i>
+                                            انتخاب عکس
+                                        </label>
+                                        <button type="button" class="btn btn-danger" id="clearAvatar" style="display: none">
+                                            <i class="mdi mdi-delete-empty"></i>
+                                            حذف عکس
+                                        </button>
+                                        <input type="file" name="avatar" id="avatar" class="form-control" hidden>
+                                    </div>
+                                    <div class="col-lg-4 col-md-6">
+                                        <label for="email">ایمیل</label>
+                                        <input type="text" class="form-control text-align-left" id="email"
+                                               value="<%= data.email %>">
+                                    </div>
+                                    <div class="col-lg-4 col-md-6">
+                                        <label for="mobile">موبایل</label>
+                                        <input type="text" class="form-control text-align-left" id="mobile"
+                                               value="<%= data.mobile %>">
+                                    </div>
+                                    <div class="col-lg-4 col-md-6">
+                                        <label for="username">نام کاربری</label>
+                                        <input type="text" class="form-control text-align-left" id="username"
+                                               value="<%= data.username %>">
+                                    </div>
+                                    <div class="col-md-12 text-center mt-3">
+                                        <button class="btn btn-primary min-w-25" id="updateProfile">به روز رسانی پروفایل
+                                        </button>
+                                    </div>
+                                    <div class="col-md-12 border-bottom border-primary mt-5 pb-2">
+                                        <h2>به روزرسانی کلمه عبور</h2>
+                                    </div>
+                                    <div class="col-lg-4 col-md-6">
+                                        <label for="oldPassword">کلمه عبور قبلی</label>
+                                        <input type="password" class="form-control text-align-left" id="oldPassword">
+                                    </div>
+                                    <div class="col-lg-4 col-md-6">
+                                        <label for="password">کلمه عبور جدید</label>
+                                        <input type="password" class="form-control text-align-left" id="password">
+                                    </div>
+                                    <div class="col-lg-4 col-md-6">
+                                        <label for="confirmPassword">تایید کلمه عبور جدید</label>
+                                        <input type="password" class="form-control text-align-left" id="confirmPassword">
+                                    </div>
+                                    <div class="col-md-12 text-center mt-3">
+                                        <button class="btn btn-primary min-w-25" id="updatePassword">به روز رسانی کلمه عبور
+                                        </button>
+                                    </div>
                                 </div>
-                                <div class="col-lg-4 col-md-6">
-                                    <label for="first_name">نام</label>
-                                    <input type="text" class="form-control" id="first_name"
-                                           value="<%= data.first_name %>">
-                                </div>
-                                <div class="col-lg-4 col-md-6">
-                                    <label for="last_name">نام خانوادگی</label>
-                                    <input type="text" class="form-control" id="last_name"
-                                           value="<%= data.last_name %>">
-                                </div>
-                                <div class="col-lg-4 col-md-6">
-                                    <label for="gender">جنسیت</label>
-                                    <select id="gender" class="form-control">
-                                        <option value="male">مرد</option>
-                                        <option value="female">زن</option>
-                                    </select>
-                                    <input type="hidden" value="<%= data.gender %>" id="genderValue">
-                                </div>
-                                <div class="col-lg-4 col-md-6">
-                                    <label for="email">ایمیل</label>
-                                    <input type="text" class="form-control text-align-left" id="email"
-                                           value="<%= data.email %>">
-                                </div>
-                                <div class="col-lg-4 col-md-6">
-                                    <label for="mobile">موبایل</label>
-                                    <input type="text" class="form-control text-align-left" id="mobile"
-                                           value="<%= data.mobile %>">
-                                </div>
-                                <div class="col-lg-4 col-md-6">
-                                    <label for="username">نام کاربری</label>
-                                    <input type="text" class="form-control text-align-left" id="username"
-                                           value="<%= data.username %>">
-                                </div>
-                                <div class="col-md-12 text-center mt-3">
-                                    <button class="btn btn-primary w-25" id="updateProfile">به روز رسانی پروفایل
-                                    </button>
-                                </div>
-                                <div class="col-md-12 border-bottom border-primary mt-5 pb-2">
-                                    <h2>به روزرسانی کلمه عبور</h2>
-                                </div>
-                                <div class="col-lg-4 col-md-6">
-                                    <label for="oldPassword">کلمه عبور قبلی</label>
-                                    <input type="password" class="form-control text-align-left" id="oldPassword">
-                                </div>
-                                <div class="col-lg-4 col-md-6">
-                                    <label for="password">کلمه عبور جدید</label>
-                                    <input type="password" class="form-control text-align-left" id="password">
-                                </div>
-                                <div class="col-lg-4 col-md-6">
-                                    <label for="confirmPassword">تایید کلمه عبور جدید</label>
-                                    <input type="password" class="form-control text-align-left" id="confirmPassword">
-                                </div>
-                                <div class="col-md-12 text-center mt-3">
-                                    <button class="btn btn-primary w-25" id="updatePassword">به روز رسانی کلمه عبور
-                                    </button>
-                                </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>

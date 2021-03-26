@@ -79,7 +79,8 @@ $(function(){
     const genderSelect = $('#gender');
     if(typeof genderSelect !== "undefined")
         genderSelect.val($('#genderValue').val());
-    $('#updateProfile').on('click', ()=>{
+    $('#updateForm').submit( function(e){
+        e.preventDefault();
         const data = {
             first_name: $('#first_name').val(),
             last_name: $('#last_name').val(),
@@ -92,22 +93,57 @@ $(function(){
         if(data.gender === "0")
             validation.push("جنسیت را وارد نکرده اید.");
         if (validation) return customAlert(validation);
-        $.ajax({
+        const updateInfo = $.ajax({
             url: "/api/user/update",
             data: JSON.stringify(data),
             contentType: "application/json",
             method: "PUT"
         })
-            .done(result => {
-                if (result.result) {
+            .fail(error => {
+                customAlert(error.responseText)
+            });
+        // upload avatar
+        const updateFormData = new FormData();
+        const avatarImage = $('#avatar')[0].files;
+        if(avatarImage.length <= 0) {
+            $.when(updateInfo).done(result=>{
+                if(result.result){
                     customAlert(["پروفایل آپدیت شد!"], 2000, "success", "Update");
                     return setTimeout(()=>window.location.href = "/dashboard", 2000);
                 }
                 customAlert(result.error);
             })
+            return false;
+        }
+        updateFormData.append('avatar', avatarImage[0]);
+
+        const updateAvatar = $.ajax({
+            url: "/api/file/avatar",
+            method: "post",
+            data: updateFormData,
+            mimeType: "multipart/form-data",
+            contentType: false,
+            processData: false
+        })
             .fail(error => {
-                customAlert(error.responseText)
+                customAlert(error.responseJSON.error);
             });
+
+        $.when(updateInfo, updateAvatar).done((infoResult, avatarResult)=>{
+            let errorMessage = "";
+            if(!infoResult[0].result)
+                errorMessage += infoResult.error + "<br>";
+            if(!JSON.parse(avatarResult[0]).result)
+                errorMessage += avatarResult.error;
+            if(errorMessage !== "") {
+                if(infoResult[0].result)
+                    errorMessage += "<br> اطلاعات آپدیت شد ولی آواتار آپلود نشد!!!";
+                return customAlert(errorMessage);
+            }
+
+            customAlert(["پروفایل آپدیت شد!"], 2000, "success", "Update");
+            setTimeout(()=>window.location.href = "/dashboard", 2000);
+        });
     });
     $('#updatePassword').on('click', ()=>{
         const data = {
@@ -133,9 +169,20 @@ $(function(){
                 customAlert(result.error);
             })
             .fail(error => {
-                customAlert(error.responseText)
+                customAlert(error.responseJSON.error);
             });
-    })
+    });
+    $('#avatar').on('change', function(){
+        if($(this).val()){
+            $('#avatarLabel').hide();
+            $('#clearAvatar').show();
+        }
+    });
+    $('#clearAvatar').on('click', ()=>{
+        $('#avatar').val(null);
+        $('#clearAvatar').hide();
+        $('#avatarLabel').show();
+    });
 });
 const customAlert = (body, disappear = 0, bg = "danger", title = "Error") => {
     const container = $('.modal-body');
@@ -144,6 +191,7 @@ const customAlert = (body, disappear = 0, bg = "danger", title = "Error") => {
     $('.modal-header').removeClass('bg-danger bg-success').addClass(`bg-${bg}`);
     $('#modalClose').removeClass('bg-danger bg-success').addClass(`bg-${bg}`);
     $('.modal-title').text(title);
+    if(typeof body !== "object") body = [body];
     body.forEach(error => prettyBody += `<li>${error}</li>`);
     container.html(prettyBody+"</ul>");
     alertModal.modal('show');
