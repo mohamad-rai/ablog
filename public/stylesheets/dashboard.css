@@ -9,3 +9,7 @@ label{
     direction: ltr;
     text-align: left;
 }
+.min-w-25{
+    min-width: 25%;
+    width: fit-content;
+}
