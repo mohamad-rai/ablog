@@ -108,7 +108,7 @@ const login = ()=>{
         .done(result => {
             if (result.result) {
                 customAlert(["ورود با موفقیت انجام شد"], 0, "success", "Login");
-                return setTimeout(()=> window.location.href = "/dashboard", 3000);
+                return setTimeout(()=> window.location.href = "/dashboard", 1000);
             }
             customAlert([result.error], 2000);
         })
