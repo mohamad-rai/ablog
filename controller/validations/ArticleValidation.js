@@ -1,11 +1,10 @@
 const {check, validationResult} = require('express-validator');
 
-exports.articleValidation = [
+exports.articleValidation = () => [
     check('title').notEmpty().isLength({min: 3}).trim().escape(),
-    check('content').notEmpty().isLength({min: 50}).escape(),
-    check('author').notEmpty()
+    check('content').notEmpty().isLength({min: 50}).escape()
 ];
-exports.updateValidation = [
+exports.updateValidation = () => [
     check('title').notEmpty().isLength({min: 3}).trim().escape().optional(),
     check('content').notEmpty().isLength({min: 50}).escape().optional(),
     check('author').notEmpty().optional(),
