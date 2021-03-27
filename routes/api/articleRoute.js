@@ -9,3 +9,5 @@ router.get('/single/:id', validator.singleValidation);
 router.post('/create', accessControl, validator.articleValidation(), validator.validate, ArticleController.create);
 router.put('/update/:id', accessControl, validator.updateValidation(), validator.validate, ArticleController.update);
 router.delete('/delete/:id', accessControl, validator.singleValidation, validator.validate, ArticleController.delete);
+
+module.exports = router;

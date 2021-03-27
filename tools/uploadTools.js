@@ -10,6 +10,13 @@ const avatarStorage = multer.diskStorage({
     }
 });
 
+const articleImageStorage = multer.diskStorage({
+    destination: path.join(__dirname, '..', 'public', 'assets', 'articles'),
+    filename: (req, file, cb) => {
+        cb(null, `${req.session.user.username}_${Date.now()}${path.extname(file.originalname)}`);
+    }
+});
+
 const filterImage = (req, file, cb) => {
     if(file.originalname.match(/\.(jpg|jpeg|png)$/))
         cb(null, true);
@@ -17,7 +24,12 @@ const filterImage = (req, file, cb) => {
         cb(new Error("Invalid file extension"), false);
 }
 
-module.exports = multer({
+exports.avatarMulter = multer({
     storage: avatarStorage,
+    fileFilter: filterImage
+});
+
+exports.articleImageMulter = multer({
+    storage: articleImageStorage,
     fileFilter: filterImage
 });
