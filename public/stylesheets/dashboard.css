@@ -5,6 +5,9 @@ input:-moz-placeholder { text-align:right; }
 label{
     margin: 20px 0 5px 0;
 }
+aside{z-index: 501 !important}
+header{z-index: 502 !important}
+label.custom-control-label{padding-right: 20px}
 .text-align-left{
     direction: ltr;
     text-align: left;
@@ -12,4 +15,7 @@ label{
 .min-w-25{
     min-width: 25%;
     width: fit-content;
+}
+.note-editing-area{
+    padding-top: 50px;
 }
