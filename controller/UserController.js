@@ -79,7 +79,6 @@ exports.password = async (req, res) => {
                 {password: req.body.password},
                 {
                     new: true,
-                    upsert: true,
                     rawResult: true
                 }
             );
