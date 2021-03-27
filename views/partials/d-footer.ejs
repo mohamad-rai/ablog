@@ -60,7 +60,8 @@
                         <label class="custom-control-label" for="collapssidebar">جمع کردن سایدبار</label>
                     </div>
                     <div class="custom-control custom-checkbox m-t-10">
-                        <input type="checkbox" class="custom-control-input" name="sidebar-position" id="sidebar-position">
+                        <input type="checkbox" class="custom-control-input" name="sidebar-position"
+                               id="sidebar-position">
                         <label class="custom-control-label" for="sidebar-position">سایدبار ثابت</label>
                     </div>
                     <div class="custom-control custom-checkbox m-t-10">
@@ -156,7 +157,8 @@
                         <div class="message-center chat-scroll">
                             <a href="javascript:void(0)" class="message-item" id='chat_user_1' data-user-id='1'>
                                     <span class="user-img">
-                                        <img src="/dashboard/assets/images/users/1.jpg" alt="user" class="rounded-circle">
+                                        <img src="/dashboard/assets/images/users/1.jpg" alt="user"
+                                             class="rounded-circle">
                                         <span class="profile-status online pull-right"></span>
                                     </span>
                                 <div class="mail-contnet">
@@ -182,7 +184,7 @@
                             <div class="font-medium">قرار ملاقات
                                 <span class="sl-date"> 5pm</span>
                             </div>
-                            <div class="desc">هرچی دوس داری بنویس </div>
+                            <div class="desc">هرچی دوس داری بنویس</div>
                         </div>
                     </div>
                     <div class="sl-item">
@@ -196,7 +198,7 @@
                     </div>
                     <div class="sl-item">
                         <div class="sl-left">
-                            <img class="rounded-circle" alt="user" src="/dashboard/assets/images/users/2.jpg"> </div>
+                            <img class="rounded-circle" alt="user" src="/dashboard/assets/images/users/2.jpg"></div>
                         <div class="sl-right">
                             <div class="font-medium">ی سر به دکتر بزن
                                 <span class="sl-date">5 minutes ago</span>
@@ -206,7 +208,7 @@
                     </div>
                     <div class="sl-item">
                         <div class="sl-left">
-                            <img class="rounded-circle" alt="user" src="/dashboard/assets/images/users/1.jpg"> </div>
+                            <img class="rounded-circle" alt="user" src="/dashboard/assets/images/users/1.jpg"></div>
                         <div class="sl-right">
                             <div>
                                 <a href="javascript:void(0)">ملاقات عاشقانه</a>
@@ -237,7 +239,7 @@
                     </div>
                     <div class="sl-item">
                         <div class="sl-left">
-                            <img class="rounded-circle" alt="user" src="/dashboard/assets/images/users/4.jpg"> </div>
+                            <img class="rounded-circle" alt="user" src="/dashboard/assets/images/users/4.jpg"></div>
                         <div class="sl-right">
                             <div class="font-medium">عطسه بزن
                                 <span class="sl-date">5 minutes ago</span>
@@ -247,7 +249,7 @@
                     </div>
                     <div class="sl-item">
                         <div class="sl-left">
-                            <img class="rounded-circle" alt="user" src="/dashboard/assets/images/users/6.jpg"> </div>
+                            <img class="rounded-circle" alt="user" src="/dashboard/assets/images/users/6.jpg"></div>
                         <div class="sl-right">
                             <div>
                                 <a href="javascript:void(0)">پشت سرتو نگا کن</a>
@@ -286,8 +288,6 @@
 <script src="/dashboard/assets/libs/jquery/dist/jquery.min.js"></script>
 <!-- validator -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/validate.js/0.13.1/validate.min.js"></script>
-<!-- custom javascript -->
-<script src="/javascripts/dashboard.js"></script>
 <!-- Bootstrap tether Core JavaScript -->
 <script src="/dashboard/assets/libs/popper.js/dist/umd/popper.min.js"></script>
 <script src="/dashboard/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -305,17 +305,13 @@
 <!--Custom JavaScript -->
 <script src="/dashboard/dist/js/custom.min.js"></script>
 <!--This page JavaScript -->
-<!--chartis chart-->
-<script src="/dashboard/assets/libs/chartist/dist/chartist.min.js"></script>
-<script src="/dashboard/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
-<!--c3 charts -->
-<script src="/dashboard/assets/extra-libs/c3/d3.min.js"></script>
-<script src="/dashboard/assets/extra-libs/c3/c3.min.js"></script>
-<!--chartjs -->
-<script src="/dashboard/assets/libs/raphael/raphael.min.js"></script>
-<script src="/dashboard/assets/libs/morris.js/morris.min.js"></script>
-
-<script src="/dashboard/dist/js/pages/dashboards/dashboard1.js"></script>
+<% if(typeof pageScript !== "undefined" && pageScript.length > 0){
+        for(const script of pageScript){
+%>
+<script src="<%= script %>"></script>
+<%
+}
+} %>
 </body>
 
 </html>
