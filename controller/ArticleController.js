@@ -2,6 +2,7 @@ const Article = require('../models/Article');
 
 exports.create = async (req,res)=>{
     try{
+        req.body.author = req.session.user._id;
         const newArticle = new Article(req.body);
         await newArticle.save();
         res.json({result: true, article: newArticle});
