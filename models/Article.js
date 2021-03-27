@@ -15,7 +15,10 @@ const ArticleSchema = new mongoose.Schema({
         ...defaultSetting,
         min: 50
     },
-    image: defaultSetting,
+    image: {
+        ...defaultSetting,
+        default: "article.png"
+    },
     views:{
         type: Number,
         default: 0
