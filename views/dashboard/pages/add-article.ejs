@@ -2,8 +2,30 @@
 <div class="col-12">
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title">Default Summernote Editor</h4>
+            <h4 class="card-title">افزودن مقاله جدید</h4>
+            <div class="row mb-3">
+                <div class="col-lg-6 col-md-12">
+                    <label for="title">عنوان</label>
+                    <input type="text" class="form-control" id="title" placeholder="چطور گیاهخوار شویم؟">
+                </div>
+                <div class="col-lg-6 col-md-12">
+                    <label for="photo" class="d-block">تصویر شاخص</label>
+                    <label for="photo" class="btn btn-dark m-0" id="photoLabel">
+                        <i class="mdi mdi-file-image"></i>
+                        انتخاب عکس
+                    </label>
+                    <button type="button" class="btn btn-danger" id="clearPhoto" style="display: none">
+                        <i class="mdi mdi-delete-empty"></i>
+                        حذف عکس
+                    </button>
+                    <input type="file" name="articlePhoto" id="photo" class="d-none">
+                </div>
+            </div>
             <div class="summernote"></div>
+            <button class="btn btn-primary" id="saveArticle">
+                <i class="mdi mdi-content-save"></i>
+                ذخیره
+            </button>
         </div>
     </div>
 </div>
