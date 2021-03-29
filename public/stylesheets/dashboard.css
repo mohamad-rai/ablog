@@ -2,6 +2,17 @@
 ::-webkit-input-placeholder { text-align:right; }
 /* mozilla solution */
 input:-moz-placeholder { text-align:right; }
+@font-face{
+    font-family: Vazir;
+    src: url(../assets/fonts/Vazir-Medium-FD-WOL.woff);
+}
+@font-face{
+    font-family: Iran-Sans;
+    src: url(../assets/fonts/IRANSANS-LIGHT-WEB.TTF);
+}
+body{
+    font-family: Poppins,Iran-Sans,Vazir,sans-serif;
+}
 label{
     margin: 20px 0 5px 0;
 }

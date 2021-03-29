@@ -2,6 +2,14 @@
 ::-webkit-input-placeholder { text-align:right; }
 /* mozilla solution */
 input:-moz-placeholder { text-align:right; }
+@font-face{
+  font-family: Vazir;
+  src: url(../assets/fonts/Vazir-Medium-FD-WOL.woff);
+}
+@font-face{
+  font-family: Iran-Sans;
+  src: url(../assets/fonts/IRANSANS-LIGHT-WEB.TTF);
+}
 body {
   background-image: url("../assets/images/register.png");
   background-size: 100vw;
@@ -9,6 +17,7 @@ body {
   background-color: #e8e6f7;
   direction: rtl !important;
   text-align: right !important;
+  font-family: Poppins,Iran-Sans,Vazir,sans-serif;
 }
 .login{background-image: url("../assets/images/login.png")}
 .container{
