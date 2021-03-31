@@ -1,8 +1,10 @@
 const router = require('express').Router();
 
-router.get('/', (req, res) => {
+const ArticleController = require('../../controller/ArticleController');
+
+router.get('/profile', (req, res) => {
     const pageScript = ["/javascripts/dashboard.js"];
-    res.render('dashboard/index', {title: "Dashboard", pageScript, data: req.session.user});
+    res.render('dashboard/index', {title: "Dashboard", page: "profile", pageScript, data: req.session.user});
 });
 router.get('/new-article', (req, res) => {
     const pageScript = [
@@ -19,5 +21,5 @@ router.get('/new-article', (req, res) => {
         pageStyle
     });
 });
-
+router.get('/', ArticleController.viewMe);
 module.exports = router;

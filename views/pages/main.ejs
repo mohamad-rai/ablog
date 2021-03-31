@@ -1,0 +1,30 @@
+<div class="row article m-3" style="height: 100vh">
+    <div class="offset-lg-2 col-lg-8 col-md-12">
+        <% for(const article of data){ %>
+        <div class="card w-100 mb-3">
+            <div class="card-body row">
+                <div class="col-2">
+                    <a href="/article/<%=article._id%>">
+                        <img src="/assets/articles/<%= article.image %>" class="w-100" alt="">
+                    </a>
+                </div>
+                <div class="col-10 d-flex flex-column">
+                    <h3 class="card-title">
+                        <a href="/article/<%=article._id%>">
+                            <%= article.title %>
+                        </a>
+                    </h3>
+                    <p class="card-text"><%= article.content.substring(0, 300) + "..." %></p>
+                    <a href="/article/<%=article._id%>" class="btn btn-primary align-self-end">ادامه مطلب</a>
+                    <div class="text-muted d-block">
+                        نویسنده:
+                        <%= article.author.first_name + " " + article.author.last_name%>,
+                        تاریخ انتشار:
+                        <%=article.created_at%>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% } %>
+    </div>
+</div>

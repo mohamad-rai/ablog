@@ -1,259 +1,86 @@
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-lg-3 col-md-6">
-            <div class="card bg-info">
-                <div class="card-body">
-                    <div class="d-flex no-block align-items-center">
-                        <div class="text-white">
-                            <h2>120</h2>
-                            <h6>مقاله منتشر شده</h6>
-                        </div>
-                        <div class="ml-auto">
-                            <span class="text-white display-6"><i class="mdi mdi-cloud-print-outline"></i></span>
-                        </div>
+<div class="row">
+    <div class="col-lg-3 col-md-6">
+        <div class="card bg-info">
+            <div class="card-body">
+                <div class="d-flex no-block align-items-center">
+                    <div class="text-white">
+                        <h2><%=data.articles.length%></h2>
+                        <h6>مقاله منتشر شده</h6>
+                    </div>
+                    <div class="ml-auto">
+                        <span class="text-white display-6"><i class="mdi mdi-cloud-print-outline"></i></span>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-3 col-md-6">
-            <div class="card bg-cyan">
-                <div class="card-body">
-                    <div class="d-flex no-block align-items-center">
-                        <div class="text-white">
-                            <h2>150</h2>
-                            <h6>نظر ثبت شده</h6>
-                        </div>
-                        <div class="ml-auto">
-                            <span class="text-white display-6"><i class="mdi mdi-comment-text"></i></span>
-                        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="card bg-cyan">
+            <div class="card-body">
+                <div class="d-flex no-block align-items-center">
+                    <div class="text-white">
+                        <h2>150</h2>
+                        <h6>نظر ثبت شده</h6>
+                    </div>
+                    <div class="ml-auto">
+                        <span class="text-white display-6"><i class="mdi mdi-comment-text"></i></span>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-3 col-md-6">
-            <div class="card bg-success">
-                <div class="card-body">
-                    <div class="d-flex no-block align-items-center">
-                        <div class="text-white">
-                            <h2>450</h2>
-                            <h6>پست پسندیده شده</h6>
-                        </div>
-                        <div class="ml-auto">
-                            <span class="text-white display-6"><i class="mdi mdi-heart"></i></span>
-                        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="card bg-success">
+            <div class="card-body">
+                <div class="d-flex no-block align-items-center">
+                    <div class="text-white">
+                        <h2>450</h2>
+                        <h6>پست پسندیده شده</h6>
+                    </div>
+                    <div class="ml-auto">
+                        <span class="text-white display-6"><i class="mdi mdi-heart"></i></span>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-3 col-md-6">
-            <div class="card bg-orange">
-                <div class="card-body">
-                    <div class="d-flex no-block align-items-center">
-                        <div class="text-white">
-                            <h2>100</h2>
-                            <h6>دنبال کننده</h6>
-                        </div>
-                        <div class="ml-auto">
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="card bg-orange">
+            <div class="card-body">
+                <div class="d-flex no-block align-items-center">
+                    <div class="text-white">
+                        <h2>100</h2>
+                        <h6>دنبال کننده</h6>
+                    </div>
+                    <div class="ml-auto">
                             <span class="text-white display-6"><i class="mdi mdi-run"></i><i
                                         class="mdi mdi-run-fast"></i></span>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-4 col-xlg-3 col-md-5">
-            <div class="card">
-                <div class="card-body">
-                    <div class="text-center m-t-30">
-                        <img src="/assets/avatars/<%= data.avatar %>" class="rounded-circle" width="150"/>
-                        <h4 class="card-title m-t-10">
-                            <%= (data.gender === "male") ? "آقای" : "بانو" %>
-                            <%= data.first_name + " " + data.last_name %>
-                        </h4>
-                        <h6 class="card-subtitle"><%= data.role %></h6>
-                    </div>
-                </div>
-                <div>
-                    <hr>
-                </div>
-                <div class="card-body">
-                    <h6>آدرس ایمیل</h6>
-                    <small class="text-muted"><%= data.email %></small>
-                    <h6 class="mt-3">موبایل</h6>
-                    <small class="text-muted p-t-30 db mb-3"><%= data.mobile %></small>
-                    <h6 class="mt-3">شبکه های اجتماعی</h6>
-                    <button class="btn btn-circle btn-secondary"><i class="fab fa-facebook-f"></i></button>
-                    <button class="btn btn-circle btn-secondary"><i class="fab fa-twitter"></i></button>
-                    <button class="btn btn-circle btn-secondary"><i class="fab fa-youtube"></i></button>
-                </div>
-            </div>
-        </div>
-        <!-- Column -->
-        <!-- Column -->
-        <div class="col-lg-8 col-xlg-9 col-md-7">
-            <div class="card">
-                <!-- Tabs -->
-                <ul class="nav nav-pills custom-pills" id="pills-tab" role="tablist">
-                    <!--                    <li class="nav-item">-->
-                    <!--                        <a class="nav-link active" id="pills-timeline-tab" data-toggle="pill" href="#current-month"-->
-                    <!--                           role="tab" aria-controls="pills-timeline" aria-selected="false" disabled="">خط زمانی</a>-->
-                    <!--                    </li>-->
-                    <li class="nav-item">
-                        <a class="nav-link active" id="pills-setting-tab" data-toggle="pill" href="#previous-month"
-                           role="tab"
-                           aria-controls="pills-setting" aria-selected="true">تنظیمات</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#last-month" role="tab"
-                           aria-controls="pills-profile" aria-selected="false" disabled="">پروفایل</a>
-                    </li>
-                </ul>
-                <!-- Tabs -->
-                <div class="tab-content" id="pills-tabContent">
-                    <div class="tab-pane fade" id="last-month" role="tabpanel" aria-labelledby="pills-profile-tab">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-3 col-xs-6 b-r"><strong>Full Name</strong>
-                                    <br>
-                                    <p class="text-muted">Johnathan Deo</p>
-                                </div>
-                                <div class="col-md-3 col-xs-6 b-r"><strong>Mobile</strong>
-                                    <br>
-                                    <p class="text-muted">(123) 456 7890</p>
-                                </div>
-                                <div class="col-md-3 col-xs-6 b-r"><strong>Email</strong>
-                                    <br>
-                                    <p class="text-muted">johnathan@admin.com</p>
-                                </div>
-                                <div class="col-md-3 col-xs-6"><strong>Location</strong>
-                                    <br>
-                                    <p class="text-muted">London</p>
-                                </div>
-                            </div>
-                            <hr>
-                            <p class="m-t-30">Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In
-                                enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede
-                                mollis pretium. Integer tincidunt.Cras dapibus. Vivamus elementum semper nisi. Aenean
-                                vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend
-                                ac, enim.</p>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-                                has been the industry's standard dummy text ever since the 1500s, when an unknown
-                                printer took a galley of type and scrambled it to make a type specimen book. It has
-                                survived not only five centuries </p>
-                            <p>It was popularised in the 1960s with the release of Letraset sheets containing Lorem
-                                Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker
-                                including versions of Lorem Ipsum.</p>
-                            <h4 class="font-medium m-t-30">Skill Set</h4>
-                            <hr>
-                            <h5 class="m-t-30">Wordpress <span class="pull-right">80%</span></h5>
-                            <div class="progress">
-                                <div class="progress-bar bg-success" role="progressbar" aria-valuenow="80"
-                                     aria-valuemin="0" aria-valuemax="100" style="width:80%; height:6px;"><span
-                                            class="sr-only">50% Complete</span></div>
-                            </div>
-                            <h5 class="m-t-30">HTML 5 <span class="pull-right">90%</span></h5>
-                            <div class="progress">
-                                <div class="progress-bar bg-info" role="progressbar" aria-valuenow="90"
-                                     aria-valuemin="0" aria-valuemax="100" style="width:90%; height:6px;"><span
-                                            class="sr-only">50% Complete</span></div>
-                            </div>
-                            <h5 class="m-t-30">jQuery <span class="pull-right">50%</span></h5>
-                            <div class="progress">
-                                <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="50"
-                                     aria-valuemin="0" aria-valuemax="100" style="width:50%; height:6px;"><span
-                                            class="sr-only">50% Complete</span></div>
-                            </div>
-                            <h5 class="m-t-30">Photoshop <span class="pull-right">70%</span></h5>
-                            <div class="progress">
-                                <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="70"
-                                     aria-valuemin="0" aria-valuemax="100" style="width:70%; height:6px;"><span
-                                            class="sr-only">50% Complete</span></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade show active" id="previous-month" role="tabpanel"
-                         aria-labelledby="pills-setting-tab">
-                        <div class="card-body">
-                            <form action="" method="post" id="updateForm">
-                                <div class="row">
-                                    <div class="col-md-12 border-bottom border-primary">
-                                        <h2>به روزرسانی پروفایل</h2>
-                                    </div>
-                                    <div class="col-lg-3 col-md-6">
-                                        <label for="first_name">نام</label>
-                                        <input type="text" class="form-control" id="first_name"
-                                               value="<%= data.first_name %>">
-                                    </div>
-                                    <div class="col-lg-3 col-md-6">
-                                        <label for="last_name">نام خانوادگی</label>
-                                        <input type="text" class="form-control" id="last_name"
-                                               value="<%= data.last_name %>">
-                                    </div>
-                                    <div class="col-lg-3 col-md-6">
-                                        <label for="gender">جنسیت</label>
-                                        <select id="gender" class="form-control">
-                                            <option value="male">مرد</option>
-                                            <option value="female">زن</option>
-                                        </select>
-                                        <input type="hidden" value="<%= data.gender %>" id="genderValue">
-                                    </div>
-                                    <div class="col-lg-3 col-md-6">
-                                        <label for="avatar">آواتار</label>
-                                        <label for="avatar" class="btn btn-dark m-0 w-100" id="avatarLabel">
-                                            <i class="mdi mdi-file-image"></i>
-                                            انتخاب عکس
-                                        </label>
-                                        <button type="button" class="btn btn-danger w-100" id="clearAvatar" style="display: none">
-                                            <i class="mdi mdi-delete-empty"></i>
-                                            حذف عکس
-                                        </button>
-                                        <input type="file" name="avatar" id="avatar" class="form-control" hidden>
-                                    </div>
-                                    <div class="col-lg-4 col-md-6">
-                                        <label for="email">ایمیل</label>
-                                        <input type="text" class="form-control text-align-left" id="email"
-                                               value="<%= data.email %>">
-                                    </div>
-                                    <div class="col-lg-4 col-md-6">
-                                        <label for="mobile">موبایل</label>
-                                        <input type="text" class="form-control text-align-left" id="mobile"
-                                               value="<%= data.mobile %>">
-                                    </div>
-                                    <div class="col-lg-4 col-md-6">
-                                        <label for="username">نام کاربری</label>
-                                        <input type="text" class="form-control text-align-left" id="username"
-                                               value="<%= data.username %>">
-                                    </div>
-                                    <div class="col-md-12 text-center mt-3">
-                                        <button class="btn btn-primary min-w-25" id="updateProfile">به روز رسانی پروفایل
-                                        </button>
-                                    </div>
-                                    <div class="col-md-12 border-bottom border-primary mt-5 pb-2">
-                                        <h2>به روزرسانی کلمه عبور</h2>
-                                    </div>
-                                    <div class="col-lg-4 col-md-6">
-                                        <label for="oldPassword">کلمه عبور قبلی</label>
-                                        <input type="password" class="form-control text-align-left" id="oldPassword">
-                                    </div>
-                                    <div class="col-lg-4 col-md-6">
-                                        <label for="password">کلمه عبور جدید</label>
-                                        <input type="password" class="form-control text-align-left" id="password">
-                                    </div>
-                                    <div class="col-lg-4 col-md-6">
-                                        <label for="confirmPassword">تایید کلمه عبور جدید</label>
-                                        <input type="password" class="form-control text-align-left" id="confirmPassword">
-                                    </div>
-                                    <div class="col-md-12 text-center mt-3">
-                                        <button class="btn btn-primary min-w-25" id="updatePassword">به روز رسانی کلمه عبور
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
+    </div>
+    <div class="col-12 row">
+        <% for(const article of data.articles){ %>
+        <a href="/article/<%= article._id %>">
+            <div class="card article">
+                <div class="d-flex flex-row">
+                    <h3 class="text-white box m-b-0">
+                        <img src="/assets/articles/<%= article.image %>" class="w-100">
+                    </h3>
+                    <div class="p-10">
+                        <h3 class="text-info m-b-0"><%= article.title %></h3>
+                        <p class="mt-2"><%= article.content.substring(0, 300) + "..." %></p>
+                        <span class="text-muted d-block">
+                    نویسنده:
+                    <%= article.author.first_name + " " + article.author.last_name %>,
+                    تاریخ انتشار:
+                    <%= article.created_at %>
+                </span>
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- Column -->
+        </a>
+        <% } %>
     </div>
 </div>

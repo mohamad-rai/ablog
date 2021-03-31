@@ -1,3 +1,5 @@
+const persianDate = require('persian-date');
+
 const Article = require('../models/Article');
 
 exports.create = async (req,res)=>{
@@ -11,7 +13,6 @@ exports.create = async (req,res)=>{
         res.status(500).json({error: "Server Error"});
     }
 };
-
 exports.all = async (req,res) => {
     try {
         const articles = await Article.find();
@@ -21,7 +22,6 @@ exports.all = async (req,res) => {
         res.status(500).json({error: "Server Error"});
     }
 };
-
 exports.single = async (req,res) => {
     try {
         const article = await Article.find({_id: req.params.id});
@@ -31,7 +31,6 @@ exports.single = async (req,res) => {
         res.status(500).json({error: "Server Error"});
     }
 };
-
 exports.update = async (req,res) => {
     try {
         const update = await Article.findOneAndUpdate({_id: req.params.id}, req.body);
@@ -43,7 +42,6 @@ exports.update = async (req,res) => {
         res.status(500).json({error: "Server Error"});
     }
 };
-
 exports.delete = async (req,res) => {
     try {
         const deleted = Article.deleteOne({_id: req.params.id});
@@ -55,3 +53,38 @@ exports.delete = async (req,res) => {
         res.status(500).json({error: "Server Error"});
     }
 };
+
+exports.viewAll = async (req,res)=>{
+    const articles = await articlesToView({});
+    if(!articles)
+        return res.status(500).json({error: "خطای سرور"});
+    res.render('index', {title: "index", data: articles});
+}
+exports.viewMe = async (req,res)=>{
+    const articles = await articlesToView({author: req.session.user._id});
+    if(!articles)
+        return res.status(500).json({error: "خطای سرور"});
+    res.render('dashboard/index', {title: "Dashboard", data: {...req.session.user, articles}});
+}
+exports.viewSingle = async (req, res) => {
+    const article = await articlesToView({_id: req.params.id});
+    if(!article)
+        return res.status(500).json({error: "خطای سرور"});
+    res.render('index', {title: article[0].title, page: 'single-article', data: article[0]});
+}
+
+const articlesToView = async condition => {
+    try{
+        const articles = await Article.find(condition).populate('author').sort({created_at: -1}).lean();
+        for(const article of articles){
+            const createdAt = article.created_at;
+            article.created_at =  new persianDate(createdAt.valueOf())
+                .format('LLLL');
+            article.content = unescape(article.content);
+        }
+        return articles;
+    } catch (err) {
+        console.log(err);
+        return false;
+    }
+}

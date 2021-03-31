@@ -1,0 +1,31 @@
+<div class="w-50 ml-auto mr-auto mb-5 mt-5 p-3 bg-light">
+    <div class="row">
+        <div class="col-12 pb-3">
+            <h3><%=data.title%></h3>
+        </div>
+        <div class="col-12">
+            <img src="/assets/articles/<%=data.image%>" alt="<%=data.image%>" class="w-100 rounded">
+        </div>
+        <div class="col-12">
+            <img src="/assets/avatars/<%=data.author.avatar%>" alt="<%=data.author.avatar%>" class="mt-3 mb-3 rounded-circle mini-img">
+            <span class="text-muted">
+                نویسنده:
+                <%=data.author.first_name + " " + data.author.last_name%>
+            </span>
+        </div>
+        <div class="col-12 mb-3 border-bottom d-flex justify-content-between">
+            <span class="text-muted">
+                تاریخ انتشار:
+                <%=data.created_at%>
+            </span>
+            <span class="text-muted">
+                <%=data.favs%>
+                پسندیدن
+                                ❤️
+            </span>
+        </div>
+        <div class="col-12">
+            <%=data.content%>
+        </div>
+    </div>
+</div>
