@@ -31,10 +31,10 @@ exports.avatar = (req, res) => {
                 fs.unlinkSync(path.join(__dirname, '..', 'public', 'assets', 'avatars', req.session.user.avatar));
             console.log(updatedUser);
             req.session.user = updatedUser;
-            res.json(JSON.stringify({result: true}));
+            res.json({result: true});
         } catch (err) {
             console.log(err);
-            res.status(500).json(JSON.stringify({error: "خطای سرور"}));
+            res.status(500).json({error: "خطای سرور"});
         }
     });
 }
@@ -53,10 +53,10 @@ exports.articleImage = (req, res) => {
                 {image: req.file.filename});
             if(updatedArticle.image && updatedArticle.image !== Config.DEFAULT_ARTICLE_IMAGE)
                 fs.unlinkSync(path.join(__dirname, '..', 'public', 'assets', 'articles', updatedArticle.image));
-            res.json(JSON.stringify({result: true}));
+            res.json({result: true});
         } catch (err) {
             console.log(err);
-            res.status(500).json(JSON.stringify({error: "خطای سرور"}));
+            res.status(500).json({error: "خطای سرور"});
         }
     })
 }
