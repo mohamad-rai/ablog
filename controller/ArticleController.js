@@ -76,12 +76,15 @@ exports.viewSingle = async (req, res) => {
 const articlesToView = async condition => {
     try{
         const articles = await Article.find(condition).populate('author').sort({created_at: -1}).lean();
+        let favs = 0;
         for(const article of articles){
             const createdAt = article.created_at;
             article.created_at =  new persianDate(createdAt.valueOf())
                 .format('LLLL');
             article.content = unescape(article.content);
+            favs += article.favs;
         }
+        articles.sumFavs = favs;
         return articles;
     } catch (err) {
         console.log(err);
