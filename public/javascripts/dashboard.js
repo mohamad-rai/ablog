@@ -109,7 +109,7 @@ $(function(){
             $.when(updateInfo).done(result=>{
                 if(result.result){
                     customAlert(["پروفایل آپدیت شد!"], 2000, "success", "Update");
-                    return setTimeout(()=>window.location.href = "/dashboard", 2000);
+                    return setTimeout(()=>window.location.href = "/dashboard/profile", 2000);
                 }
                 customAlert(result.error);
             })
@@ -142,7 +142,7 @@ $(function(){
             }
 
             customAlert(["پروفایل آپدیت شد!"], 2000, "success", "Update");
-            setTimeout(()=>window.location.href = "/dashboard", 2000);
+            setTimeout(()=>window.location.href = "/dashboard/profile", 2000);
         });
     });
     $('#updatePassword').on('click', ()=>{
