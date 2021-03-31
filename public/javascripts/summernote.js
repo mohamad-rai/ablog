@@ -29,6 +29,7 @@ $(function () {
                     contentType: false,
                     processData: false
                 }).done(result => {
+                    result = JSON.parse(result);
                     if (result.result) {
                         customAlert(["مقاله با موفقیت منتشر شد."], 2000, "success", "Update");
                         $('#title').val(null);
