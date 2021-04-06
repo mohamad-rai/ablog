@@ -6,6 +6,7 @@ const {avatarMulter, articleImageMulter} = require('../tools/uploadTools');
 const User = require('../models/User');
 const Article = require('../models/Article');
 const Config = require('../config/const');
+const uploadImage = require('../tools/froala-image');
 
 const errorHandler = (err, res) => {
     if (err instanceof multer.MulterError) {
@@ -53,10 +54,23 @@ exports.articleImage = (req, res) => {
                 {image: req.file.filename});
             if(updatedArticle.image && updatedArticle.image !== Config.DEFAULT_ARTICLE_IMAGE)
                 fs.unlinkSync(path.join(__dirname, '..', 'public', 'assets', 'articles', updatedArticle.image));
-            res.json({result: true});
+            res.json({result: true, link: `/assets/articles/${req.file.filename}`});
         } catch (err) {
             console.log(err);
             res.status(500).json({error: "خطای سرور"});
         }
     })
+}
+
+exports.base64ToImage = (req, res) => {
+    // const bitmap = new Buffer(req.body.articlePhoto, 'base64');
+    // fs.writeFileSync("../public/assets/articles/")
+    uploadImage(req, function(err, data) {
+
+        if (err) {
+            return res.status(404).json(err);
+        }
+
+        res.json(data);
+    });
 }

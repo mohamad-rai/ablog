@@ -23,6 +23,8 @@ a, a:hover{
     color: black;
     text-decoration: none;
 }
+.operation .button-danger:hover{background-color: #b80000}
+.operation .button-success:hover{background-color: #0a7d69}
 .text-align-left{
     direction: ltr;
     text-align: left;

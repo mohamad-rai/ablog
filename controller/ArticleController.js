@@ -1,4 +1,6 @@
 const persianDate = require('persian-date');
+const he = require('he'); //HTML entities
+const clipper = require('text-clipper').default;
 
 const Article = require('../models/Article');
 
@@ -44,7 +46,10 @@ exports.update = async (req,res) => {
 };
 exports.delete = async (req,res) => {
     try {
-        const deleted = Article.deleteOne({_id: req.params.id});
+        const condition = {_id: req.params.id};
+        if(req.session.user.role !== "superAdmin" || req.session.user.role !== "admin")
+            condition.author = req.session.user._id;
+        const deleted = await Article.deleteOne(condition);
         if(deleted.deletedCount)
             return res.json({result: true});
         res.status(404).json({error: "user not found"});
@@ -58,19 +63,40 @@ exports.viewAll = async (req,res)=>{
     const articles = await articlesToView({});
     if(!articles)
         return res.status(500).json({error: "خطای سرور"});
-    res.render('index', {title: "index", data: articles});
+    res.render('index', {title: "index", data: {articles, clipper}});
 }
 exports.viewMe = async (req,res)=>{
+    const page = req.route.path === "/articles" ? "article-management" : "main";
     const articles = await articlesToView({author: req.session.user._id});
+    const pageScript = ["/javascripts/dashboard.js"];
     if(!articles)
         return res.status(500).json({error: "خطای سرور"});
-    res.render('dashboard/index', {title: "Dashboard", data: {...req.session.user, articles}});
+    console.log(articles.length)
+    res.render('dashboard/index', {title: "Dashboard", page, pageScript, data: {...req.session.user, articles, clipper}});
 }
 exports.viewSingle = async (req, res) => {
     const article = await articlesToView({_id: req.params.id});
     if(!article)
         return res.status(500).json({error: "خطای سرور"});
     res.render('index', {title: article[0].title, page: 'single-article', data: article[0]});
+}
+exports.viewUpdate = async (req,res) => {
+    const article = await Article.findById(req.params.id);
+    article.content = he.unescape(article.content);
+    const pageScript = [
+        "https://cdn.jsdelivr.net/npm/froala-editor@3.1.0/js/froala_editor.pkgd.min.js",
+        "/dashboard/assets/libs/froala-editor/js/languages/fa.js",
+        "/dashboard/assets/libs/froala-editor/js/plugins/image.min.js",
+        "/javascripts/dashboard.js"
+    ];
+    const pageStyle = ["https://cdn.jsdelivr.net/npm/froala-editor@3.1.0/css/froala_editor.pkgd.min.css"];
+    res.render('dashboard/index', {
+        title: "Update Article",
+        page: "update-article",
+        data: {...req.session.user, article},
+        pageScript,
+        pageStyle
+    });
 }
 
 const articlesToView = async condition => {
@@ -82,6 +108,11 @@ const articlesToView = async condition => {
             article.created_at =  new persianDate(createdAt.valueOf())
                 .format('LLLL');
             article.content = unescape(article.content);
+            const updatedAt = article.updated_at;
+            article.updated_at =  new persianDate(updatedAt.valueOf())
+                .format('LLLL');
+            article.content = he.unescape(article.content);
+            // article.content = he.unescape(clipper(article.content));
             favs += article.favs;
         }
         articles.sumFavs = favs;

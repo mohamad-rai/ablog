@@ -1,0 +1,43 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">افزودن مقاله جدید</h4>
+                <div class="row mb-3">
+                    <div class="col-lg-8 col-md-12">
+                        <label for="title">عنوان</label>
+                        <input type="text" class="form-control" id="title" placeholder="چطور گیاهخوار شویم؟"
+                               value="<%= data.article.title %>">
+                    </div>
+                    <div class="col-lg-4 col-md-12">
+                        <label for="photo" class="d-block">تصویر شاخص</label>
+                        <label for="photo" class="btn btn-dark m-0" id="photoLabel">
+                            <i class="mdi mdi-file-image"></i>
+                            انتخاب عکس
+                        </label>
+                        <button type="button" class="btn btn-danger" id="clearPhoto" style="display: none">
+                            <i class="mdi mdi-delete-empty"></i>
+                            حذف عکس
+                        </button>
+                        <input type="file" name="articlePhoto" id="photo" class="d-none">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-8 col-md-12">
+                        <div class="froala-editor">
+                            <%- data.article.content %>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12">
+                        <img src="/assets/articles/<%= data.article.image %>" alt="<%= data.article.title %>"
+                             class="w-100">
+                    </div>
+                </div>
+                <button class="btn btn-primary" data-type="update" data-id="<%= data.article._id %>" id="saveArticle">
+                    <i class="mdi mdi-content-save"></i>
+                    ذخیره
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

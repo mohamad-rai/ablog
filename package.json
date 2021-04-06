@@ -8,16 +8,21 @@
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "busboy": "^0.2.14",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "ejs": "~2.6.1",
     "express": "~4.16.1",
     "express-session": "^1.17.1",
     "express-validator": "^6.10.0",
+    "he": "^1.2.0",
     "http-errors": "~1.6.3",
     "mongoose": "^5.12.1",
     "morgan": "~1.9.1",
     "multer": "^1.4.2",
-    "persian-date": "^1.1.0"
+    "persian-date": "^1.1.0",
+    "sha1": "^1.1.1",
+    "text-clipper": "^2.1.0",
+    "wysiwyg-editor-node-sdk": "^3.2.5"
   }
 }

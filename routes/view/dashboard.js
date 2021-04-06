@@ -8,14 +8,28 @@ router.get('/profile', (req, res) => {
 });
 router.get('/new-article', (req, res) => {
     const pageScript = [
-        "/dashboard/assets/libs/summernote/dist/summernote-bs4.min.js",
-        "/dashboard/assets/libs/summernote/dist/lang/summernote-fa-IR.min.js",
-        "/javascripts/summernote.js"
+        "https://cdn.jsdelivr.net/npm/froala-editor@3.1.0/js/froala_editor.pkgd.min.js",
+        "/dashboard/assets/libs/froala-editor/js/languages/fa.js",
+        "/dashboard/assets/libs/froala-editor/js/plugins/image.min.js",
+        "/javascripts/dashboard.js"
     ];
-    const pageStyle = ["/dashboard/assets/libs/summernote/dist/summernote-bs4.css"];
+    const pageStyle = ["https://cdn.jsdelivr.net/npm/froala-editor@3.1.0/css/froala_editor.pkgd.min.css"];
     res.render('dashboard/index', {
         title: "New Article",
         page: "add-article",
+        data: req.session.user,
+        pageScript,
+        pageStyle
+    });
+});
+router.get('/articles', ArticleController.viewMe);
+router.get('/articles/:id', ArticleController.viewUpdate);
+router.get('/test', (req, res) => {
+    const pageStyle = []
+    const pageScript = [];
+    res.render('dashboard/index', {
+        title: "test",
+        page: "test",
         data: req.session.user,
         pageScript,
         pageStyle

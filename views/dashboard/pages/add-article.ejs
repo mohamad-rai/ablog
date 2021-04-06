@@ -10,19 +10,19 @@
                 </div>
                 <div class="col-lg-6 col-md-12">
                     <label for="photo" class="d-block">تصویر شاخص</label>
-                    <label for="photo" class="btn btn-dark m-0" id="photoLabel">
+                    <label for="photo" class="btn btn-dark m-0 choose-photo" id="photoLabel">
                         <i class="mdi mdi-file-image"></i>
                         انتخاب عکس
                     </label>
-                    <button type="button" class="btn btn-danger" id="clearPhoto" style="display: none">
+                    <button type="button" class="btn btn-danger delete-photo" id="clearPhoto" style="display: none">
                         <i class="mdi mdi-delete-empty"></i>
                         حذف عکس
                     </button>
                     <input type="file" name="articlePhoto" id="photo" class="d-none">
                 </div>
             </div>
-            <div class="summernote"></div>
-            <button class="btn btn-primary" id="saveArticle">
+            <div class="froala-editor"></div>
+            <button class="btn btn-primary" data-type="create" id="saveArticle">
                 <i class="mdi mdi-content-save"></i>
                 ذخیره
             </button>

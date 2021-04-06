@@ -6,3 +6,4 @@ exports.DATABASE_NAME = "ablog";
 exports.DATABASE_ADDRESS = "localhost:27017";
 exports.DEFAULT_AVATAR = "user.png";
 exports.DEFAULT_ARTICLE_IMAGE = "article.png";
+exports.EDITOR_IMAGE_PATH = "../public/assets/articles/";

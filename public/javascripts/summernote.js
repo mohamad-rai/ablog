@@ -1,11 +1,12 @@
 $(function () {
-    $('#saveArticle').on('click', () => {
+    $('#saveArticle').on('click', function () {
         const data = {
             title: $('#title').val(),
             content: $('.summernote').summernote('code')
         }
+        const request = $(this).data('type') === "create" ? "create" : `update/${$(this).data('id')}`;
         $.ajax({
-            url: "/api/article/create",
+            url: `/api/article/${request}`,
             data: JSON.stringify(data),
             contentType: "application/json",
             method: "POST"
