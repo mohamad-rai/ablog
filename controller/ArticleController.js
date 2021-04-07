@@ -35,7 +35,11 @@ exports.single = async (req,res) => {
 };
 exports.update = async (req,res) => {
     try {
-        const update = await Article.findOneAndUpdate({_id: req.params.id}, req.body);
+        const update = await Article.findOneAndUpdate({_id: req.params.id}, req.body, {
+            new: true,
+            rawResult: true
+        });
+        console.log(update);
         if(update.ok)
             return res.json({result: true});
         res.status(400).json({error: "article not found"});

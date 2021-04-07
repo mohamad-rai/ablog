@@ -1,7 +1,7 @@
 validate.options = {format: "flat"};
 validate.validators.presence.options = {message: "نمیتواند خالی باشد"};
 validate.validators.fullMessages = false;
-validate.validators.equality = function(value, options, key, attributes) {
+validate.validators.equality = function (value, options, key, attributes) {
     const other = attributes[options.with];
     if (value !== other) {
         const attr = validate.prettify(options.with);
@@ -76,7 +76,7 @@ const passwordConstraints = {
     }
 }
 let editor;
-$(function(){
+$(function () {
     const genderSelect = $('#gender');
     editor = new FroalaEditor('.froala-editor', {
         language: 'fa',
@@ -91,22 +91,36 @@ $(function(){
             },
             'image.uploaded': response => customAlert('عکس اپلود شد', 500, 'success', 'upload'),
             'image.error': (error, response) => {
-                switch (error.code){
-                    case 1: customAlert("خطا در آپلود عکس (لینک آپلود خراب شده)"); break;
-                    case 2: customAlert("آدرس عکس از سمت سرور دریافت نشد"); break;
-                    case 3: customAlert("خطایی در آپلود فایل رخ داد"); break;
-                    case 4: customAlert("خطا در تجزیه داده"); break;
-                    case 5: customAlert("حجم فایل بالا است"); break;
-                    case 6: customAlert("فرمت فایل نامعتبر است"); break;
-                    case 7: customAlert("مرورگر شما نامعتبر است"); break;
+                switch (error.code) {
+                    case 1:
+                        customAlert("خطا در آپلود عکس (لینک آپلود خراب شده)");
+                        break;
+                    case 2:
+                        customAlert("آدرس عکس از سمت سرور دریافت نشد");
+                        break;
+                    case 3:
+                        customAlert("خطایی در آپلود فایل رخ داد");
+                        break;
+                    case 4:
+                        customAlert("خطا در تجزیه داده");
+                        break;
+                    case 5:
+                        customAlert("حجم فایل بالا است");
+                        break;
+                    case 6:
+                        customAlert("فرمت فایل نامعتبر است");
+                        break;
+                    case 7:
+                        customAlert("مرورگر شما نامعتبر است");
+                        break;
 
                 }
             }
         }
     });
-    if(typeof genderSelect !== "undefined")
+    if (typeof genderSelect !== "undefined")
         genderSelect.val($('#genderValue').val());
-    $('#updateForm').submit( function(e){
+    $('#updateForm').submit(function (e) {
         e.preventDefault();
         const data = {
             first_name: $('#first_name').val(),
@@ -117,7 +131,7 @@ $(function(){
             username: $('#username').val(),
         }
         validation = validate(data, constraints);
-        if(data.gender === "0")
+        if (data.gender === "0")
             validation.push("جنسیت را وارد نکرده اید.");
         if (validation) return customAlert(validation);
         const updateInfo = $.ajax({
@@ -131,12 +145,12 @@ $(function(){
             });
         // upload avatar
         const updateFormData = new FormData();
-        const avatarImage = $('#avatar')[0].files;
-        if(avatarImage.length <= 0) {
-            $.when(updateInfo).done(result=>{
-                if(result.result){
+        const avatarImage = $('#photo')[0].files;
+        if (avatarImage.length <= 0) {
+            $.when(updateInfo).done(result => {
+                if (result.result) {
                     customAlert(["پروفایل آپدیت شد!"], 2000, "success", "Update");
-                    return setTimeout(()=>window.location.href = "/dashboard/profile", 2000);
+                    return setTimeout(() => window.location.href = "/dashboard/profile", 2000);
                 }
                 customAlert(result.error);
             })
@@ -156,32 +170,32 @@ $(function(){
                 customAlert(error.responseJSON.error);
             });
 
-        $.when(updateInfo, updateAvatar).done((infoResult, avatarResult)=>{
+        $.when(updateInfo, updateAvatar).done((infoResult, avatarResult) => {
             let errorMessage = "";
-            if(!infoResult[0].result)
+            if (!infoResult[0].result)
                 errorMessage += infoResult.error + "<br>";
-            if(!JSON.parse(avatarResult[0]).result)
+            if (!JSON.parse(avatarResult[0]).result)
                 errorMessage += avatarResult.error;
-            if(errorMessage !== "") {
-                if(infoResult[0].result)
+            if (errorMessage !== "") {
+                if (infoResult[0].result)
                     errorMessage += "<br> اطلاعات آپدیت شد ولی آواتار آپلود نشد!!!";
                 return customAlert(errorMessage);
             }
 
             customAlert(["پروفایل آپدیت شد!"], 2000, "success", "Update");
-            setTimeout(()=>window.location.href = "/dashboard/profile", 2000);
+            setTimeout(() => window.location.href = "/dashboard/profile", 2000);
         });
     });
-    $('#updatePassword').on('click', ()=>{
+    $('#updatePassword').on('click', () => {
         const data = {
             oldPassword: $('#oldPassword').val(),
             password: $('#password').val(),
             confirmPassword: $('#confirmPassword').val()
         };
         const validation = validate(data, passwordConstraints);
-        if(data.oldPassword === "" || data.password === "" || data.confirmPassword === "")
+        if (data.oldPassword === "" || data.password === "" || data.confirmPassword === "")
             validation.push("ورود همه فیلد ها اجباری است");
-        if(validation) return customAlert(validation);
+        if (validation) return customAlert(validation);
         $.ajax({
             url: "/api/user/update-password",
             data: JSON.stringify(data),
@@ -191,7 +205,7 @@ $(function(){
             .done(result => {
                 if (result.result) {
                     customAlert(["کلمه عبور آپدیت شد"], 3000, "success", "Password Update");
-                    return setTimeout(()=>window.location.href = "/api/user/logout", 3000);
+                    return setTimeout(() => window.location.href = "/api/user/logout", 3000);
                 }
                 customAlert(result.error);
             })
@@ -199,13 +213,13 @@ $(function(){
                 customAlert(error.responseJSON.error);
             });
     });
-    $('#photo').on('change', function(){
-        if($(this).val()){
+    $('#photo').on('change', function () {
+        if ($(this).val()) {
             $('.choose-photo').hide();
             $('.delete-photo').show();
         }
     });
-    $('.delete-photo').on('click', ()=>{
+    $('.delete-photo').on('click', () => {
         $('#photo').val(null);
         $('.delete-photo').hide();
         $('.choose-photo').show();
@@ -220,19 +234,21 @@ $(function(){
             url: `/api/article/${request}`,
             data: JSON.stringify(data),
             contentType: "application/json",
-            method: "POST"
+            method: $(this).data('type') === "create" ? "POST" : "PUT"
         }).done(result => {
             if (result.result) {
                 const fd = new FormData();
                 const articlePhoto = $('#photo')[0].files;
                 if (articlePhoto.length <= 0) {
                     customAlert(["مقاله با موفقیت منتشر شد."], 2000, "success", "Update");
-                    $('#title').val('');
-                    editor.html.set('');
+                    if($(this).data('type') === "create"){
+                        $('#title').val('');
+                        editor.html.set('');
+                    }
                     return;
                 }
                 fd.append('articlePhoto', articlePhoto[0]);
-                fd.append('articleId', result.article._id);
+                fd.append('articleId', $(this).data('type') === "create" ? result.article._id : $(this).data('id'));
                 $.ajax({
                     url: "/api/file/article-image",
                     method: "POST",
@@ -244,11 +260,13 @@ $(function(){
                     result = JSON.parse(result);
                     if (result.result) {
                         customAlert(["مقاله با موفقیت منتشر شد."], 2000, "success", "Update");
-                        $('#title').val(null);
-                        editor.html.set('');
-                        $('#photo').val(null);
-                        $('#clearPhoto').hide();
-                        $('#photoLabel').show();
+                        if($(this).data('type') === "create"){
+                            $('#title').val(null);
+                            editor.html.set('');
+                            $('#photo').val(null);
+                            $('#clearPhoto').hide();
+                            $('#photoLabel').show();
+                        }
                         return;
                     }
                     customAlert(result.error);
@@ -264,23 +282,23 @@ $(function(){
                 customAlert(err.responseJSON.error);
             });
     });
-    $('.deleteArticle').on('click', function(){
+    $('.deleteArticle').on('click', function () {
         const deleteConfirm = confirm("آیا از حذف این مقاله اطمینان دارید؟");
-        if(!deleteConfirm) return false;
+        if (!deleteConfirm) return false;
         const articleId = $(this).data('id');
         console.log(articleId);
         $.ajax({
-            url: "/api/article/delete/"+articleId,
+            url: "/api/article/delete/" + articleId,
             method: "delete"
         })
-            .done(result=>{
-                if(result.result) {
+            .done(result => {
+                if (result.result) {
                     customAlert(["مقاله با موفقیت حذف شد"], 3000, "success", "Delete Article");
-                    return setTimeout(()=>window.location.href = "/dashboard/articles", 3000);
+                    return setTimeout(() => window.location.href = "/dashboard/articles", 3000);
                 }
                 customAlert(result.error);
             })
-            .fail(err=>{
+            .fail(err => {
                 customAlert(err.responseText);
             });
     });
@@ -292,9 +310,9 @@ const customAlert = (body, disappear = 0, bg = "danger", title = "Error") => {
     $('.modal-header').removeClass('bg-danger bg-success').addClass(`bg-${bg}`);
     $('#modalClose').removeClass('bg-danger bg-success').addClass(`bg-${bg}`);
     $('.modal-title').text(title);
-    if(typeof body !== "object") body = [body];
+    if (typeof body !== "object") body = [body];
     body.forEach(error => prettyBody += `<li>${error}</li>`);
-    container.html(prettyBody+"</ul>");
+    container.html(prettyBody + "</ul>");
     alertModal.modal('show');
-    if(disappear) setTimeout(()=>alertModal.modal('hide'), disappear);
+    if (disappear) setTimeout(() => alertModal.modal('hide'), disappear);
 }
