@@ -1,7 +1,6 @@
 const Busboy = require("busboy");
 const path = require("path");
 const fs = require("fs");
-const sha1 = require("sha1");
 
 const config = require('../config/const');
 
