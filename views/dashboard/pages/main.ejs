@@ -35,7 +35,7 @@
                 <div class="d-flex no-block align-items-center">
                     <div class="text-white">
                         <h2><%=data.articles.sumFavs%></h2>
-                        <h6>پست پسندیده شده</h6>
+                        <h6>بار پسندیده شده</h6>
                     </div>
                     <div class="ml-auto">
                         <span class="text-white display-6"><i class="mdi mdi-heart"></i></span>
@@ -61,16 +61,25 @@
         </div>
     </div>
     <div class="col-12 row">
+        <div class="col-12">
+            <h3 class="page-title">آخرین مقالات</h3>
+        </div>
+        <%
+        if(data.articles.length > 3) data.articles.length = 3
+        %>
         <% for(const article of data.articles){ %>
-        <a href="/article/<%= article._id %>">
             <div class="card article">
                 <div class="d-flex flex-row">
-                    <h3 class="text-white box m-b-0">
-                        <img src="/assets/articles/<%= article.image %>" class="w-100">
-                    </h3>
+                    <a href="/article/<%= article._id %>">
+                        <h3 class="text-white box m-b-0">
+                            <img src="/assets/articles/<%= article.image %>" class="w-100">
+                        </h3>
+                    </a>
                     <div class="p-10">
-                        <h3 class="text-info m-b-0"><%= article.title %></h3>
-                        <p class="mt-2"><%= article.content.substring(0, 300) + "..." %></p>
+                        <a href="/article/<%= article._id %>">
+                            <h3 class="text-info m-b-0"><%= article.title %></h3>
+                        </a>
+                        <p class="mt-2"><%- data.clipper(article.content, 300, {html: true, maxLines: 3}) %></p>
                         <span class="text-muted d-block">
                     نویسنده:
                     <%= article.author.first_name + " " + article.author.last_name %>,
@@ -80,7 +89,6 @@
                     </div>
                 </div>
             </div>
-        </a>
         <% } %>
     </div>
 </div>
