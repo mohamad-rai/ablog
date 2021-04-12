@@ -59,7 +59,7 @@ exports.update = async (req, res) => {
             }
         );
         if (update.ok) {
-            req.locals.user = req.session.user = update.value;
+            req.session.user = update.value;
             return res.json({result: true});
         }
         res.json({result: false});

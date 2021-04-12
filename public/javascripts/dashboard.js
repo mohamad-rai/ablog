@@ -78,46 +78,47 @@ const passwordConstraints = {
 let editor;
 $(function () {
     const genderSelect = $('#gender');
-    editor = new FroalaEditor('.froala-editor', {
-        language: 'fa',
-        // imageUploadParam: 'articlePhoto',
-        imageManagerDeleteURL: '/delete_image',
-        imageUploadURL: '/api/file/froala-image',
-        imageUploadMethod: 'POST',
-        imageAllowedTypes: ['jpeg', 'jpg', 'png', 'gif'],
-        events: {
-            'image.beforeUpload': function (files) {
-                console.log('file is going to upload');
-            },
-            'image.uploaded': response => customAlert('عکس اپلود شد', 500, 'success', 'upload'),
-            'image.error': (error, response) => {
-                switch (error.code) {
-                    case 1:
-                        customAlert("خطا در آپلود عکس (لینک آپلود خراب شده)");
-                        break;
-                    case 2:
-                        customAlert("آدرس عکس از سمت سرور دریافت نشد");
-                        break;
-                    case 3:
-                        customAlert("خطایی در آپلود فایل رخ داد");
-                        break;
-                    case 4:
-                        customAlert("خطا در تجزیه داده");
-                        break;
-                    case 5:
-                        customAlert("حجم فایل بالا است");
-                        break;
-                    case 6:
-                        customAlert("فرمت فایل نامعتبر است");
-                        break;
-                    case 7:
-                        customAlert("مرورگر شما نامعتبر است");
-                        break;
+    if($('.froala-editor').length)
+        editor = new FroalaEditor('.froala-editor', {
+            language: 'fa',
+            // imageUploadParam: 'articlePhoto',
+            imageManagerDeleteURL: '/delete_image',
+            imageUploadURL: '/api/file/froala-image',
+            imageUploadMethod: 'POST',
+            imageAllowedTypes: ['jpeg', 'jpg', 'png', 'gif'],
+            events: {
+                'image.beforeUpload': function (files) {
+                    console.log('file is going to upload');
+                },
+                'image.uploaded': response => customAlert('عکس اپلود شد', 500, 'success', 'upload'),
+                'image.error': (error, response) => {
+                    switch (error.code) {
+                        case 1:
+                            customAlert("خطا در آپلود عکس (لینک آپلود خراب شده)");
+                            break;
+                        case 2:
+                            customAlert("آدرس عکس از سمت سرور دریافت نشد");
+                            break;
+                        case 3:
+                            customAlert("خطایی در آپلود فایل رخ داد");
+                            break;
+                        case 4:
+                            customAlert("خطا در تجزیه داده");
+                            break;
+                        case 5:
+                            customAlert("حجم فایل بالا است");
+                            break;
+                        case 6:
+                            customAlert("فرمت فایل نامعتبر است");
+                            break;
+                        case 7:
+                            customAlert("مرورگر شما نامعتبر است");
+                            break;
 
+                    }
                 }
             }
-        }
-    });
+        });
     if (typeof genderSelect !== "undefined")
         genderSelect.val($('#genderValue').val());
     $('#updateForm').submit(function (e) {

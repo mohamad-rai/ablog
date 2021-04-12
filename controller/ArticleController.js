@@ -35,7 +35,13 @@ exports.single = async (req, res) => {
 };
 exports.update = async (req, res) => {
     try {
-        const update = await Article.findOneAndUpdate({_id: req.params.id}, req.body);
+        const update = await Article.findOneAndUpdate(
+            {_id: req.params.id},
+            req.body,
+            {
+                new: true,
+                rawResult: true
+            });
         if (update.ok)
             return res.json({result: true});
         res.status(400).json({error: "article not found"});
@@ -46,7 +52,7 @@ exports.update = async (req, res) => {
 };
 exports.delete = async (req, res) => {
     try {
-        const deleted = Article.deleteOne({_id: req.params.id});
+        const deleted = await Article.deleteOne({_id: req.params.id});
         if (deleted.deletedCount)
             return res.json({result: true});
         res.status(404).json({error: "user not found"});
