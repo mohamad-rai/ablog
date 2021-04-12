@@ -69,12 +69,12 @@
         %>
         <% for(const article of data.articles){ %>
             <div class="card article">
-                    <div class="d-flex flex-row">
-                <a href="/article/<%= article._id %>">
-                    <h3 class="text-white box m-b-0">
-                        <img src="/assets/articles/<%= article.image %>" class="w-100">
-                    </h3>
-                </a>
+                <div class="d-flex flex-row">
+                    <a href="/article/<%= article._id %>">
+                        <h3 class="text-white box m-b-0">
+                            <img src="/assets/articles/<%= article.image %>" class="w-100">
+                        </h3>
+                    </a>
                     <div class="p-10">
                         <a href="/article/<%= article._id %>">
                             <h3 class="text-info m-b-0"><%= article.title %></h3>

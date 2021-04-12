@@ -81,6 +81,20 @@ $(function () {
 
     $('#login').on('click', login);
     $('#signup').on('click', signup);
+    // choose active menu
+    const pageRequest = window.location.href.split('/').pop();
+    if(pageRequest)
+        $(`a[href$="${pageRequest}"]`).parent().addClass('active');
+    else
+        $('.nav-link').first().parent().addClass('active');
+    /// dock favorite posts
+    $(window).scroll(()=>{
+        let sct = $(document).scrollTop();
+        if(sct >= 1230)
+            $('.favorite-posts').addClass('favorite-posts-dock');
+        else
+            $('.favorite-posts').removeClass('favorite-posts-dock');
+    })
 });
 const customAlert = (body, disappear = 0, bg = "danger", title = "Error") => {
     const container = $('.modal-body');

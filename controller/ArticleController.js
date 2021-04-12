@@ -4,8 +4,8 @@ const clipper = require('text-clipper').default;
 
 const Article = require('../models/Article');
 
-exports.create = async (req,res)=>{
-    try{
+exports.create = async (req, res) => {
+    try {
         req.body.author = req.session.user._id;
         const newArticle = new Article(req.body);
         await newArticle.save();
@@ -15,7 +15,7 @@ exports.create = async (req,res)=>{
         res.status(500).json({error: "Server Error"});
     }
 };
-exports.all = async (req,res) => {
+exports.all = async (req, res) => {
     try {
         const articles = await Article.find();
         res.json(articles);
@@ -24,7 +24,7 @@ exports.all = async (req,res) => {
         res.status(500).json({error: "Server Error"});
     }
 };
-exports.single = async (req,res) => {
+exports.single = async (req, res) => {
     try {
         const article = await Article.find({_id: req.params.id});
         req.json(article);
@@ -33,14 +33,10 @@ exports.single = async (req,res) => {
         res.status(500).json({error: "Server Error"});
     }
 };
-exports.update = async (req,res) => {
+exports.update = async (req, res) => {
     try {
-        const update = await Article.findOneAndUpdate({_id: req.params.id}, req.body, {
-            new: true,
-            rawResult: true
-        });
-        console.log(update);
-        if(update.ok)
+        const update = await Article.findOneAndUpdate({_id: req.params.id}, req.body);
+        if (update.ok)
             return res.json({result: true});
         res.status(400).json({error: "article not found"});
     } catch (err) {
@@ -48,13 +44,10 @@ exports.update = async (req,res) => {
         res.status(500).json({error: "Server Error"});
     }
 };
-exports.delete = async (req,res) => {
+exports.delete = async (req, res) => {
     try {
-        const condition = {_id: req.params.id};
-        if(req.session.user.role !== "superAdmin" || req.session.user.role !== "admin")
-            condition.author = req.session.user._id;
-        const deleted = await Article.deleteOne(condition);
-        if(deleted.deletedCount)
+        const deleted = Article.deleteOne({_id: req.params.id});
+        if (deleted.deletedCount)
             return res.json({result: true});
         res.status(404).json({error: "user not found"});
     } catch (err) {
@@ -63,28 +56,41 @@ exports.delete = async (req,res) => {
     }
 };
 
-exports.viewAll = async (req,res)=>{
-    const articles = await articlesToView({});
-    if(!articles)
+exports.viewAll = async (req, res) => {
+    let articles = await articlesToView({});
+    if (!articles)
         return res.status(500).json({error: "خطای سرور"});
-    res.render('index', {title: "index", data: {articles, clipper}});
+    let recommend = {};
+    if (req.session.recommendedPosts && req.session.recommendedPosts.length > 0) {
+        for (let i = 0; i < req.session.recommendedPosts.length; i++)
+            articles[req.session.recommendedPosts[i]].recommend = true;
+        recommend = {articles, recommends: req.session.recommendedPosts}
+    } else {
+        recommend = recommendPost(articles);
+        req.session.recommendedPosts = [...recommend.recommends];
+    }
+    res.render('index', {title: "index", data: {...recommend, clipper}});
 }
-exports.viewMe = async (req,res)=>{
+exports.viewMe = async (req, res) => {
     const page = req.route.path === "/articles" ? "article-management" : "main";
-    const articles = await articlesToView({author: req.session.user._id});
     const pageScript = ["/javascripts/dashboard.js"];
-    if(!articles)
+    const articles = await articlesToView({author: req.session.user._id});
+    if (!articles)
         return res.status(500).json({error: "خطای سرور"});
-    console.log(articles.length)
-    res.render('dashboard/index', {title: "Dashboard", page, pageScript, data: {...req.session.user, articles, clipper}});
+    res.render('dashboard/index', {
+        title: "Dashboard",
+        page,
+        pageScript,
+        data: {...req.session.user, articles, clipper}
+    });
 }
 exports.viewSingle = async (req, res) => {
     const article = await articlesToView({_id: req.params.id});
-    if(!article)
+    if (!article)
         return res.status(500).json({error: "خطای سرور"});
     res.render('index', {title: article[0].title, page: 'single-article', data: article[0]});
 }
-exports.viewUpdate = async (req,res) => {
+exports.viewUpdate = async (req, res) => {
     const article = await Article.findById(req.params.id);
     article.content = he.unescape(article.content);
     const pageScript = [
@@ -104,19 +110,17 @@ exports.viewUpdate = async (req,res) => {
 }
 
 const articlesToView = async condition => {
-    try{
+    try {
         const articles = await Article.find(condition).populate('author').sort({created_at: -1}).lean();
         let favs = 0;
-        for(const article of articles){
+        for (const article of articles) {
             const createdAt = article.created_at;
-            article.created_at =  new persianDate(createdAt.valueOf())
+            article.created_at = new persianDate(createdAt.valueOf())
                 .format('LLLL');
-            article.content = unescape(article.content);
             const updatedAt = article.updated_at;
-            article.updated_at =  new persianDate(updatedAt.valueOf())
+            article.updated_at = new persianDate(updatedAt.valueOf())
                 .format('LLLL');
             article.content = he.unescape(article.content);
-            // article.content = he.unescape(clipper(article.content));
             favs += article.favs;
         }
         articles.sumFavs = favs;
@@ -125,4 +129,18 @@ const articlesToView = async condition => {
         console.log(err);
         return false;
     }
+}
+const recommendPost = articles => {
+    const recommends = [];
+    for (let i = 1; i <= 4; i++) {
+        while (true) {
+            let random = ~~(Math.random() * (articles.length - 1)) + 1;
+            if (!articles[random].recommend) {
+                recommends.push(random);
+                articles[random].recommend = true;
+                break;
+            }
+        }
+    }
+    return {articles, recommends};
 }
