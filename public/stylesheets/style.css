@@ -10,6 +10,10 @@ input:-moz-placeholder { text-align:right; }
   font-family: Iran-Sans;
   src: url(../assets/fonts/IRANSANS-LIGHT-WEB.TTF);
 }
+a, a:hover{
+  color: white;
+  text-decoration: none;
+}
 body {
   background-size: 100vw;
   background-repeat: no-repeat;
@@ -20,12 +24,6 @@ body {
 }
 .login{background-image: url("../assets/images/login.png")}
 .register{background-image: url("../assets/images/register.png")}
-.container{
-  width: 25%;
-  position: absolute;
-  top: 20%;
-  right: 3%;
-}
 .form-control{
   margin-bottom: 8px;
   box-shadow: -1px 3px 2px rgba(71,70,70 , 0.2);
@@ -49,13 +47,17 @@ input:active{
   cursor: pointer;
 }
 .btn-custom{
-  background-color: #8854d0;
+  background-color: #8e44ad;
   color: #fff0ff !important;
 }
 
 .text-align-left{
   direction: ltr;
   text-align: left;
+}
+.text-align-right{
+  direction: rtl;
+  text-align: right;
 }
 .customError{
   width: fit-content;
@@ -71,8 +73,71 @@ input:active{
 .article{direction: ltr}
 .card-body{direction: rtl}
 .mini-img {width: 75px}
+.navbar-brand{
+  margin-right: 0;
+  border-left: 2px solid rgba(0,0,0,0.30);
+  padding-left: 10px;
+}
+.navbar-brand img{width: 100px}
+.navbar-nav {padding-right: 5px}
+.active a{
+  color: #f5d21f !important;
+  font-weight: bold;
+}
+.bg-purple{background-color: #8e44ad}
+.nav-link{color: #ecf0f1 !important}
+.bg-yellow{background-color: #f5d21f}
+.border-yellow{border-color: #f5d21f}
+.btn.bg-yellow:hover{
+  background-color: #e1b12c !important;
+  border-color: #e1b12c;
+}
+.posts .col-lg-5, .posts .col-lg-7{padding: 3px !important}
+.post-recommend{
+  color: #ecf0f1;
+  height: 300px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 10px;
+  position: relative;
+}
+.post-recommend a{color: #ecf0f1}
+.post-detail{
+  background-color: rgba(0, 0, 0, 0.50);
+  padding: 3px;
+  border-radius: 5px;
+}
+.post-image{
+  position: relative;
+  filter: contrast(80%) brightness(50%);
+}
+.post-detail{
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+}
+.post-detail img, .avatar-image{
+  width: 50px;
+  margin-left: 3px;
+}
+.post-title{margin-bottom: 8px}
+.title{
+  font-size: 1.5rem;
+}
+.post-like {font-size: 20px}
+.post-like i{cursor: pointer}
+
+@media only screen and (min-width: 600px) {
+  .my-container{
+    width: 25%;
+    position: absolute;
+    top: 20%;
+    right: 3%;
+  }
+}
 @media only screen and (max-width: 600px) {
   .container{
     width: 100%;
   }
+  .mr-3{margin: 0 !important}
 }
