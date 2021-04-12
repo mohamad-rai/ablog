@@ -126,7 +126,27 @@ input:active{
 }
 .post-like {font-size: 20px}
 .post-like i{cursor: pointer}
-
+.hover-big{
+  transition: width 1s;
+  width: 200px;
+}
+.hover-big:hover{
+  width: 220px;
+}
+.favorite-posts img{
+  width: 40px;
+  margin-left: 5px;
+}
+.favorite-posts{
+  font-size: .9rem;
+  transition: top 1s;
+}
+.favorite-posts .fave-title{font-size: 1.1rem}
+.favorite-posts .d-flex{align-items: end}
+.favorite-posts-dock {
+  position: fixed;
+  top: 1rem;
+}
 @media only screen and (min-width: 600px) {
   .my-container{
     width: 25%;
@@ -140,4 +160,5 @@ input:active{
     width: 100%;
   }
   .mr-3{margin: 0 !important}
+  .mobile-hidden{display: none}
 }
