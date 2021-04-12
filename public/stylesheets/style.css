@@ -17,7 +17,7 @@ a, a:hover{
 body {
   background-size: 100vw;
   background-repeat: no-repeat;
-  background-color: #e8e6f7;
+  background-color: #e7e7e7;
   direction: rtl !important;
   text-align: right !important;
   font-family: Poppins,Iran-Sans,Vazir,sans-serif;
@@ -139,7 +139,9 @@ input:active{
 }
 .favorite-posts{
   font-size: .9rem;
-  transition: top 1s;
+  position: absolute;
+  top: 0;
+  transition: top 500ms;
 }
 .favorite-posts .fave-title{font-size: 1.1rem}
 .favorite-posts .d-flex{align-items: end}

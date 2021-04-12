@@ -90,7 +90,7 @@ $(function () {
     /// dock favorite posts
     $(window).scroll(()=>{
         let sct = $(document).scrollTop();
-        if(sct >= 1214)
+        if(sct >= 1230)
             $('.favorite-posts').addClass('favorite-posts-dock');
         else
             $('.favorite-posts').removeClass('favorite-posts-dock');

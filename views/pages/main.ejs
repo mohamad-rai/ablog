@@ -94,34 +94,36 @@
                     <i class="fa fa-caret-left"></i>
                 </button>
             </div>
-            <div class="favorite-posts">
-                <strong class="fave-title d-block mb-4 mt-3">
-                    محبوب ترین های آبلاگ
-                </strong>
-                <%
-                const best = data.articles.sort((a1, a2) => {
-                    if (a1.favs > a2.favs) return -1;
-                    if (a1.favs < a2.favs) return 1;
-                    return 0;
-                });
-                best.length = 5;
-                best.forEach(article => {
-                %>
-                    <div class="d-flex mb-3">
-                        <img src="/assets/avatars/<%= article.author.avatar %>" alt="<%= article.author.first_name %>"
-                             class="rounded-circle">
-                        <div class="d-flex flex-column">
-                            <strong>
-                                <%= data.clipper(article.title, 25) %>
-                            </strong>
-                            <p class="text-muted">
-                                <%= article.author.first_name + " " + article.author.last_name %>
-                            </p>
+            <div class="position-relative">
+                <div class="favorite-posts">
+                    <strong class="fave-title d-block mb-4 mt-3">
+                        محبوب ترین های آبلاگ
+                    </strong>
+                    <%
+                    const best = [...data.articles].sort((a1, a2) => {
+                        if (a1.favs > a2.favs) return -1;
+                        if (a1.favs < a2.favs) return 1;
+                        return 0;
+                    });
+                    best.length = 5;
+                    best.forEach(article => {
+                    %>
+                        <div class="d-flex mb-3">
+                            <img src="/assets/avatars/<%= article.author.avatar %>" alt="<%= article.author.first_name %>"
+                                 class="rounded-circle">
+                            <div class="d-flex flex-column">
+                                <strong>
+                                    <%= data.clipper(article.title, 25) %>
+                                </strong>
+                                <p class="text-muted">
+                                    <%= article.author.first_name + " " + article.author.last_name %>
+                                </p>
+                            </div>
                         </div>
-                    </div>
-                <%
-                })
-                %>
+                    <%
+                    })
+                    %>
+                </div>
             </div>
         </div>
         <div class="col-lg-8 col-md-12 pr-0">
