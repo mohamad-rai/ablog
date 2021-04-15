@@ -27,11 +27,21 @@ exports.avatar = (req, res) => {
     upload(req, res, async err => {
         if(!errorHandler(err, res)) return;
         try {
-            const updatedUser = await User.findByIdAndUpdate(req.session.user._id, {avatar: req.file.filename}, {new: true});
-            if(req.session.user.avatar && req.session.user.avatar !== Config.DEFAULT_AVATAR)
-                fs.unlinkSync(path.join(__dirname, '..', 'public', 'assets', 'avatars', req.session.user.avatar));
-            console.log(updatedUser);
-            req.session.user = updatedUser;
+            let userId = req.session.user._id;
+            let imageName = req.session.user.avatar;
+            if(req.body.userId){
+                userId = req.body.userId;
+                imageName = req.body.avatar;
+            }
+            const updatedUser = await User.findByIdAndUpdate(userId, {avatar: req.file.filename}, {new: true});
+            const preFile = path.join(__dirname, '..', 'public', 'assets', 'avatars', imageName);
+            if(
+                imageName &&
+                imageName !== Config.DEFAULT_AVATAR &&
+                fs.existsSync(preFile)
+            )
+                fs.unlinkSync(preFile);
+            if(!req.body.userId) res.locals.user = req.session.user = updatedUser;
             res.json({result: true});
         } catch (err) {
             console.log(err);
@@ -45,12 +55,12 @@ exports.articleImage = (req, res) => {
 
     upload(req, res, async err => {
         if(!errorHandler(err, res)) return;
+        const condition = {_id: req.body.articleId};
+        if(req.session.user.role !== 'admin' && req.session.user.role !== 'superAdmin')
+            condition.author = req.session.user._id;
         try {
             const updatedArticle = await Article.findOneAndUpdate(
-                {
-                    _id: req.body.articleId,
-                    author: req.session.user._id
-                },
+                condition,
                 {image: req.file.filename});
             if(updatedArticle.image && updatedArticle.image !== Config.DEFAULT_ARTICLE_IMAGE)
                 fs.unlinkSync(path.join(__dirname, '..', 'public', 'assets', 'articles', updatedArticle.image));

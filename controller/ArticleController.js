@@ -80,7 +80,10 @@ exports.viewAll = async (req, res) => {
 exports.viewMe = async (req, res) => {
     const page = req.route.path === "/articles" ? "article-management" : "main";
     const pageScript = ["/javascripts/dashboard.js"];
-    const articles = await articlesToView({author: req.session.user._id});
+    const condition = {};
+    if(req.session.user.role !== "admin" && req.session.user.role !== "superAdmin")
+        condition.author = req.session.user._id;
+    const articles = await articlesToView(condition);
     if (!articles)
         return res.status(500).json({error: "خطای سرور"});
     res.render('dashboard/index', {
@@ -112,6 +115,18 @@ exports.viewUpdate = async (req, res) => {
         data: {...req.session.user, article},
         pageScript,
         pageStyle
+    });
+}
+exports.viewUserArticles = async (req,res) => {
+    const articles = await articlesToView({author: req.params.id});
+    const pageScript = ["/javascripts/dashboard.js"];
+    if (!articles)
+        return res.status(500).json({error: "خطای سرور"});
+    res.render('dashboard/index', {
+        title: "Articles",
+        page: "article-management",
+        pageScript,
+        data: {...req.session.user, articles, clipper}
     });
 }
 

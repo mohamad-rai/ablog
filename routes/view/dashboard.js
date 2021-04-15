@@ -1,10 +1,12 @@
 const router = require('express').Router();
 
 const ArticleController = require('../../controller/ArticleController');
+const UserController = require('../../controller/UserController');
+const {adminAccess} = require('../../tools/generalTools');
 
 router.get('/profile', (req, res) => {
     const pageScript = ["/javascripts/dashboard.js"];
-    res.render('dashboard/index', {title: "Dashboard", page: "profile", pageScript, data: req.session.user});
+    res.render('dashboard/index', {title: "Profile", page: "profile", pageScript, data: req.session.user});
 });
 router.get('/new-article', (req, res) => {
     const pageScript = [
@@ -24,6 +26,13 @@ router.get('/new-article', (req, res) => {
 });
 router.get('/articles', ArticleController.viewMe);
 router.get('/articles/:id', ArticleController.viewUpdate);
+router.get('/user-article/:id', ArticleController.viewUserArticles);
+router.get('/new-user', adminAccess, (req, res) => {
+    const pageScript = ["/javascripts/dashboard.js"];
+    res.render('dashboard/index', {title: "New User", page: "add-user", pageScript, data: req.session.user});
+});
+router.get('/users', adminAccess, UserController.viewUsers);
+router.get('/users/:id', adminAccess, UserController.updateUser);
 router.get('/test', (req, res) => {
     const pageStyle = []
     const pageScript = [];

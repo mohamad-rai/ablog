@@ -1,0 +1,49 @@
+<div class="row table-responsive">
+    <table class="table table-hover table-striped table-bordered m-2">
+        <thead class="thead-dark">
+        <tr>
+            <th>تصویر</th>
+            <th>نام کاربری</th>
+            <th>نام</th>
+            <th>جنسیت</th>
+            <th>ایمیل</th>
+            <th>موبایل</th>
+            <th>نقش</th>
+            <th>عملیات</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% for(const user of data.users){ %>
+            <tr>
+                <td class="text-center">
+                    <img src="/assets/avatars/<%= user.avatar %>" alt="<%= user.first_name %>" width="60px">
+                </td>
+                <td><%= user.username %></td>
+                <td><%= user.first_name + " " + user.last_name %></td>
+                <td><%= user.gender === "male" ? "آقا" : "خانم" %></td>
+                <td><%= user.email %></td>
+                <td><%= user.mobile %></td>
+                <td><%= user.role === "admin" ? "مدیر" : "بلاگر" %></td>
+                <td class="operation">
+                    <a href="/dashboard/users/<%= user._id %>" class="btn btn-success btn-sm"
+                       data-toggle="tooltip" data-placement="bottom" title="ویرایش">
+                        <i class="fa fa-pencil-alt"></i>
+                    </a>
+                    <a href="/dashboard/user-article/<%= user._id %>" class="btn btn-primary btn-sm"
+                       data-toggle="tooltip" data-placement="bottom" title="مقاله ها">
+                        <i class="fa fa-folder-open"></i>
+                    </a>
+                    <button class="btn btn-warning text-dark btn-sm resetPassword" data-id="<%= user._id %>"
+                            data-toggle="tooltip" data-placement="bottom" title="بازیابری کلمه عبور">
+                        <i class="fa fa-key"></i>
+                    </button>
+                    <button class="btn btn-danger btn-sm deleteUser" data-id="<%= user._id %>" data-toggle="tooltip"
+                            data-placement="bottom" title="حذف">
+                        <i class="fa fa-trash"></i>
+                    </button>
+                </td>
+            </tr>
+        <% } %>
+        </tbody>
+    </table>
+</div>

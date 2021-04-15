@@ -36,12 +36,18 @@ console.log(background);
             <li class="nav-item">
                 <a class="nav-link" href="/">صفحه اصلی <span class="sr-only">(current)</span></a>
             </li>
+            <%if(sessionUser){%>
             <li class="nav-item">
-                <a class="nav-link" href="/login">ورود</a>
+                <a class="nav-link" href="/dashboard">پنل | <%=sessionUser.username%></a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/register">ثبت نام</a>
-            </li>
+            <%} else {%>
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">ورود</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/register">ثبت نام</a>
+                </li>
+            <%}%>
         </ul>
     </div>
 </nav>

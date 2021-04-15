@@ -78,6 +78,7 @@ UserSchema.pre('save', async function (next) {
 
 UserSchema.pre('findOneAndUpdate', async function (next){
     const user = this._update;
+    console.log(user);
     if(user.password){
         const encryptResult = await encrypt(user.password);
         if(!encryptResult.result){

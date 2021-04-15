@@ -1,0 +1,119 @@
+<div class="row flex-row-reverse">
+    <div class="col-md-12">
+        <h2>آپدیت کاربر</h2>
+    </div>
+    <div class="col-md-4">
+        <img src="/assets/avatars/<%= data.user.avatar %>" alt="<%= data.user.username %>" class="w-100 rounded"
+             id="imageHolder">
+    </div>
+    <div class="col-md-8 row">
+        <div class="col-md-6">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i class="fa fa-id-card "></i>
+                    </span>
+                </div>
+                <input type="text" class="form-control" id="first_name" placeholder="نام"
+                       value="<%= data.user.first_name %>">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i class="fa fa-id-card "></i>
+                    </span>
+                </div>
+                <input type="text" class="form-control" id="last_name" placeholder="نام خانوادگی"
+                       value="<%= data.user.last_name %>">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i class="fa fa-male"></i>
+                        <i class="fa fa-female"></i>
+                    </span>
+                </div>
+                <select id="gender" class="form-control">
+                    <option value="0">جنسیت...</option>
+                    <option value="male">مرد</option>
+                    <option value="female">زن</option>
+                </select>
+                <input type="hidden" id="genderValue" value="<%= data.user.gender %>">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i class="fa fa-envelope"></i>
+                    </span>
+                </div>
+                <input type="text" class="form-control text-align-left" id="email" placeholder="ایمیل"
+                       value="<%= data.user.email %>">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i class="fa fa-mobile-alt"></i>
+                    </span>
+                </div>
+                <input type="text" class="form-control text-align-left" id="mobile" placeholder="موبایل"
+                       value="<%= data.user.mobile %>">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i class="fa fa-user"></i>
+                    </span>
+                </div>
+                <input type="text" class="form-control text-align-left" id="username" placeholder="نام کاربری"
+                       value="<%= data.user.username %>">
+            </div>
+        </div>
+        <% if(sessionUser.role === "superAdmin"){ %>
+        <div class="col-md-6">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i class="fa fa-address-card"></i>
+                    </span>
+                </div>
+                <select id="role" class="form-control">
+                    <option value="admin">ادمین</option>
+                    <option value="blogger">بلاگر</option>
+                </select>
+                <input type="hidden" id="roleValue" value="<%= data.user.role %>">
+            </div>
+        </div>
+        <% } %>
+        <div class="col-md-6">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i class="fa fa-image"></i>
+                    </span>
+                </div>
+                <label for="photo" class="btn btn-dark m-0 choose-photo" id="photoLabel">
+                    <i class="mdi mdi-file-image"></i>
+                    انتخاب عکس
+                </label>
+                <button type="button" class="btn btn-danger delete-photo" id="clearPhoto" style="display: none">
+                    <i class="mdi mdi-delete-empty"></i>
+                    حذف عکس
+                </button>
+                <input type="file" name="articlePhoto" id="photo" class="d-none">
+            </div>
+        </div>
+        <div class="col-md-12 mt-3">
+            <a class="btn btn-primary text-light" id="updateUser" data-id="<%=data.user._id%>">آپدیت</a>
+        </div>
+    </div>
+</div>

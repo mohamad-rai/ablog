@@ -2,9 +2,13 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">افزودن مقاله جدید</h4>
+                <h4 class="card-title d-block">افزودن مقاله جدید</h4>
+                <button class="btn btn-primary mt-3 saveArticle" data-type="update" data-id="<%= data.article._id %>">
+                    <i class="mdi mdi-content-save"></i>
+                    ذخیره
+                </button>
                 <div class="row mb-3">
-                    <div class="col-lg-8 col-md-12">
+                    <div class="col-lg-8 col-md-10">
                         <label for="title">عنوان</label>
                         <input type="text" class="form-control" id="title" placeholder="چطور گیاهخوار شویم؟"
                                value="<%= data.article.title %>">
@@ -30,10 +34,10 @@
                     </div>
                     <div class="col-lg-4 col-md-12">
                         <img src="/assets/articles/<%= data.article.image %>" alt="<%= data.article.title %>"
-                             class="w-100">
+                             class="w-100" id="imageHolder">
                     </div>
                 </div>
-                <button class="btn btn-primary" data-type="update" data-id="<%= data.article._id %>" id="saveArticle">
+                <button class="btn btn-primary saveArticle" data-type="update" data-id="<%= data.article._id %>">
                     <i class="mdi mdi-content-save"></i>
                     ذخیره
                 </button>

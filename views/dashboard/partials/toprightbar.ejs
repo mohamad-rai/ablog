@@ -47,7 +47,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true"
                        aria-expanded="false">
-                        <img src="/assets/avatars/<%= user.avatar %>" alt="user" class="rounded-circle" width="31">
+                        <img src="/assets/avatars/<%= sessionUser.avatar %>" alt="user" class="rounded-circle" width="31">
                     </a>
                     <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
                                 <span class="with-arrow">
@@ -55,11 +55,11 @@
                                 </span>
                         <div class="d-flex no-block align-items-center p-15 bg-primary text-white m-b-10">
                             <div class="">
-                                <img src="/assets/avatars/<%= user.avatar %>" alt="user" class="img-circle" width="60">
+                                <img src="/assets/avatars/<%= sessionUser.avatar %>" alt="user" class="img-circle" width="60">
                             </div>
                             <div class="m-l-10">
-                                <h4 class="m-b-0"><%=user.first_name + " " + user.last_name%></h4>
-                                <p class=" m-b-0"><%=user.email%></p>
+                                <h4 class="m-b-0"><%=sessionUser.first_name + " " + sessionUser.last_name%></h4>
+                                <p class=" m-b-0"><%=sessionUser.email%></p>
                             </div>
                         </div>
                         <a class="dropdown-item" href="javascript:void(0)">
@@ -104,10 +104,10 @@
                     <!-- User Profile-->
                     <div class="user-profile dropdown m-t-20">
                         <div class="user-pic">
-                            <img src="/assets/avatars/<%= user.avatar %>" alt="users" class="rounded-circle img-fluid" />
+                            <img src="/assets/avatars/<%= sessionUser.avatar %>" alt="users" class="rounded-circle img-fluid" />
                         </div>
                         <div class="user-content hide-menu m-t-10">
-                            <h5 class="m-b-10 user-name font-medium"><%=user.first_name + " " + user.last_name%></h5>
+                            <h5 class="m-b-10 user-name font-medium"><%=sessionUser.first_name + " " + sessionUser.last_name%></h5>
                             <a href="javascript:void(0)" class="btn btn-circle btn-sm m-r-5" id="Userdd" role="button" data-toggle="dropdown" aria-haspopup="true"
                                aria-expanded="false">
                                 <i class="ti-settings"></i>
@@ -173,9 +173,30 @@
                                 <span class="hide-menu"> نظرات </span>
                             </a>
                         </li>
-
                     </ul>
                 </li>
+                <%if(sessionUser.role === "admin" || sessionUser.role === "superAdmin") {%>
+                <li class="sidebar-item">
+                    <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                        <i class="icon-MaleFemale"></i>
+                        <span class="hide-menu">کاربران </span>
+                    </a>
+                    <ul aria-expanded="false" class="collapse  first-level">
+                        <li class="sidebar-item">
+                            <a href="/dashboard/new-user" class="sidebar-link">
+                                <i class="icon-pencil"></i>
+                                <span class="hide-menu"> افزودن کاربر جدید </span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="/dashboard/users" class="sidebar-link">
+                                <i class="icon-folder-alt"></i>
+                                <span class="hide-menu"> مدیریت کاربران </span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <%}%>
                 <li class="nav-small-cap">
                     <i class="mdi mdi-dots-horizontal"></i>
                     <span class="hide-menu">شخصی</span>

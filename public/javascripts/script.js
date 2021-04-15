@@ -154,8 +154,10 @@ const signup = ()=>{
         method: "POST"
     })
         .done(result => {
-            if (result.result)
-                return customAlert(["ثبت نام تکمیل شد"], 3000, "success", "Register");
+            if (result.result) {
+                customAlert(["ثبت نام تکمیل شد"], 3000, "success", "Register");
+                return setTimeout(()=>window.location.href = "/login", 3000);
+            }
             customAlert([result.error], 3000);
         })
         .fail(error => {
