@@ -31,7 +31,7 @@ exports.login = async (req, res) => {
             .then(checkPassword => {
                 if (!checkPassword) return res.json({error: "کاربری با این مشخصات پیدا نشد x_x"});
 
-                req.session.user = user;
+                res.locals.sessionUser = req.session.user = user;
                 res.json({result: true});
             })
             .catch(bcryptError => {

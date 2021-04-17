@@ -97,7 +97,19 @@ exports.viewSingle = async (req, res) => {
     const article = await articlesToView({_id: req.params.id});
     if (!article)
         return res.status(500).json({error: "خطای سرور"});
-    res.render('index', {title: article[0].title, page: 'single-article', data: article[0]});
+    const pageScript = [
+        "https://cdn.jsdelivr.net/npm/froala-editor@3.1.0/js/froala_editor.pkgd.min.js",
+        "/dashboard/assets/libs/froala-editor/js/languages/fa.js",
+        "/dashboard/assets/libs/froala-editor/js/plugins/image.min.js"
+    ];
+    const pageStyle = ["https://cdn.jsdelivr.net/npm/froala-editor@3.1.0/css/froala_editor.pkgd.min.css"];
+    res.render('index', {
+        title: article[0].title,
+        page: 'single-article',
+        data: article[0],
+        pageScript,
+        pageStyle
+    });
 }
 exports.viewUpdate = async (req, res) => {
     const article = await Article.findById(req.params.id);

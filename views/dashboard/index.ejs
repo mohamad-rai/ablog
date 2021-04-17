@@ -3,6 +3,6 @@
 <% const comingData = typeof data === "undefined" ? null : data %>
 <% const script = typeof pageScript === "undefined" ? [] : pageScript %>
 <% const style = typeof pageStyle === "undefined" ? [] : pageStyle %>
-<%-include('partials/head', {title: pageTitle, user: comingData, pageStyle: style})%>
+<%-include('partials/head', {title: pageTitle, background:pageName, user: comingData, pageStyle: style})%>
 <%-include(`pages/${pageName}`, {data: comingData})%>
 <%-include('partials/footer', {pageScript: script})%>

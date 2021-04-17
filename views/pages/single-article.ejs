@@ -27,5 +27,11 @@
         <div class="col-12">
             <%-data.content%>
         </div>
+        <div class="col-12">
+            <h5>نظرات:</h5>
+            <%if(typeof sessionUser !== "undefined"){%>
+                <div class="froala-editor"></div>
+            <%}%>
+        </div>
     </div>
 </div>

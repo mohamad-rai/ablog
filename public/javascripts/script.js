@@ -71,6 +71,11 @@ const constraints = {
     }
 }
 $(function () {
+    if ($('.froala-editor').length)
+        editor = new FroalaEditor('.froala-editor', {
+            language: 'fa',
+            toolbarButtons: ['bold', 'italic', 'underline' , '-', 'undo', 'redo']
+        });
     const urlParser = window.location.href.split('/');
     $(document).on('keypress', function (e){
         if(parseInt(e.which) === 13){
