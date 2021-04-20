@@ -1,7 +1,9 @@
-const Comment = require('../models/Comment.js');
+const persianDate = require('persian-date');
+
+const Comment = require('../models/Comment');
 exports.create = async (req, res) => {
     try {
-        const newComment = new Comment(req.body);
+        const newComment = new Comment({...req.body, writer: req.session.user._id});
         await newComment.save();
         res.json({result: true, comment: newComment});
     } catch (err) {
@@ -49,3 +51,20 @@ exports.delete = async (req, res) => {
         res.status(500).json({error: 'Server Error'});
     }
 };
+
+exports.viewArticleComments = async (req, res, next) => {
+    const comments = await Comment.find({article: req.params.article})
+        .populate('article')
+        .populate('writer')
+        .lean()
+        .exec();
+    for(const comment of comments)
+        comment.created_at = new persianDate(comment.created_at.valueOf()).format('LLLL');
+    const pageScript = ["/javascripts/dashboard.js"];
+    res.render('dashboard/index', {
+        title: "Comments",
+        page: 'comment-management',
+        data: {comments},
+        pageScript
+    });
+}

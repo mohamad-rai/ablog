@@ -6,3 +6,5 @@ router.post('/create', CommentController.create);
 router.get('/all/:type/:id', CommentController.all);
 router.get('/single/:id', CommentController.single);
 router.delete('/delete/:id', CommentController.delete);
+
+module.exports = router;

@@ -85,6 +85,7 @@ input:active{
   font-weight: bold;
 }
 .bg-purple{background-color: #8e44ad}
+.bg-light-purple{background-color: #a29bfe52}
 .nav-link{color: #ecf0f1 !important}
 .bg-yellow{background-color: #f5d21f}
 .border-yellow{border-color: #f5d21f}
@@ -148,6 +149,10 @@ input:active{
 .favorite-posts-dock {
   position: fixed;
   top: 1rem;
+}
+.comment-writer img{
+  width: 75px;
+  margin-left: 5px;
 }
 @media only screen and (min-width: 600px) {
   .my-container{

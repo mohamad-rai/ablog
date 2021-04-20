@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "bson": "^1.1.6",
     "busboy": "^0.2.14",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",

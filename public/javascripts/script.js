@@ -74,7 +74,8 @@ $(function () {
     if ($('.froala-editor').length)
         editor = new FroalaEditor('.froala-editor', {
             language: 'fa',
-            toolbarButtons: ['bold', 'italic', 'underline' , '-', 'undo', 'redo']
+            toolbarButtons: ['bold', 'italic', 'underline' , '-','redo' , 'undo'],
+            pluginsEnabled: { quickInsertTags: [''] }
         });
     const urlParser = window.location.href.split('/');
     $(document).on('keypress', function (e){
@@ -86,6 +87,26 @@ $(function () {
 
     $('#login').on('click', login);
     $('#signup').on('click', signup);
+    $('#sendComment').on('click', function(){
+        const data = {
+            content: editor.html.get(),
+            article: $(this).data('id')
+        }
+        $.ajax({
+            url: "/api/comment/create",
+            data: JSON.stringify(data),
+            contentType: "application/json",
+            method: "POST"
+        })
+            .done(result => {
+                if (result.result)
+                    return customAlert(["نظر شما با موفقیت ثبت شد و پس از تایید نمایش داده میشود."], 3000, "success", "Password Update");
+                customAlert(result.error);
+            })
+            .fail(error => {
+                customAlert(error.responseJSON.error);
+            });
+    })
     // choose active menu
     const pageRequest = window.location.href.split('/').pop();
     if(pageRequest)

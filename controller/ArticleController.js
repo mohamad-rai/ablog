@@ -3,6 +3,8 @@ const he = require('he'); //HTML entities
 const clipper = require('text-clipper').default;
 
 const Article = require('../models/Article');
+const Comment = require('../models/Comment');
+const {ObjectId} = require("bson");
 
 exports.create = async (req, res) => {
     try {
@@ -26,7 +28,7 @@ exports.all = async (req, res) => {
 };
 exports.single = async (req, res) => {
     try {
-        const article = await Article.find({_id: req.params.id});
+        const article = await Article.findOne({_id: req.params.id});
         req.json(article);
     } catch (err) {
         console.log(err);
@@ -81,20 +83,22 @@ exports.viewMe = async (req, res) => {
     const page = req.route.path === "/articles" ? "article-management" : "main";
     const pageScript = ["/javascripts/dashboard.js"];
     const condition = {};
-    if(req.session.user.role !== "admin" && req.session.user.role !== "superAdmin")
+    if (req.session.user.role !== "admin" && req.session.user.role !== "superAdmin")
         condition.author = req.session.user._id;
     const articles = await articlesToView(condition);
     if (!articles)
         return res.status(500).json({error: "خطای سرور"});
+    const countedComments = await commentCounter(articles);
     res.render('dashboard/index', {
         title: "Dashboard",
         page,
         pageScript,
-        data: {...req.session.user, articles, clipper}
+        data: {...req.session.user, articles, countedComments, clipper}
     });
 }
 exports.viewSingle = async (req, res) => {
     const article = await articlesToView({_id: req.params.id});
+    const comments = await getComments(req.params.id);
     if (!article)
         return res.status(500).json({error: "خطای سرور"});
     const pageScript = [
@@ -106,7 +110,7 @@ exports.viewSingle = async (req, res) => {
     res.render('index', {
         title: article[0].title,
         page: 'single-article',
-        data: article[0],
+        data: {article: article[0], comments},
         pageScript,
         pageStyle
     });
@@ -129,7 +133,7 @@ exports.viewUpdate = async (req, res) => {
         pageStyle
     });
 }
-exports.viewUserArticles = async (req,res) => {
+exports.viewUserArticles = async (req, res) => {
     const articles = await articlesToView({author: req.params.id});
     const pageScript = ["/javascripts/dashboard.js"];
     if (!articles)
@@ -176,4 +180,26 @@ const recommendPost = articles => {
         }
     }
     return {articles, recommends};
+}
+const getComments = async articleId => {
+    try {
+        const comments = await Comment.find({status: true, article: articleId}).populate('writer').lean().exec();
+        for (const comment of comments) {
+            const persianCreatedDate = new persianDate(comment.created_at.valueOf()).format('LL').split(' ');
+            comment.created_at = `${persianCreatedDate[1]} ${persianCreatedDate[0]} ${persianCreatedDate[2]}`
+        }
+        return comments;
+    } catch (err) {
+        console.log(err);
+        return false;
+    }
+}
+const commentCounter = async articles => {
+    const articleIds = [];
+    for (const article of articles) articleIds.push(new ObjectId(article._id));
+    const comments = await Comment.find({article: {$in: articleIds}}).lean();
+    if (!comments) return [];
+    const countedComments = articleIds.reduce((acc, curr) => (acc[curr] = 0 , acc), {});
+    for (const comment of comments) countedComments[comment.article]++;
+    return countedComments;
 }

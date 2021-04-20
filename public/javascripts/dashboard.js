@@ -303,9 +303,14 @@ $(function () {
             reader.readAsDataURL(input.files[0]);
         }
     });
-    $('#updateUser').on('click', function(){
+    $('#updateUser').on('click', function () {
         updateUser($(this).data('id'));
     });
+    $('.showComment').on('click', function () {
+        const id = $(this).parent().data('id');
+        const target = $(`#${id}`).parent().parent();
+        target.toggleClass('showContent');
+    })
 });
 const customAlert = (body, disappear = 0, bg = "danger", title = "Error") => {
     const container = $('.modal-body');
@@ -363,7 +368,7 @@ const updateUser = (userId = "") => {
         username: $('#username').val(),
     }
     const role = $('#role');
-    if(role.length) data.role = role.val();
+    if (role.length) data.role = role.val();
     validation = validate(data, constraints);
     if (data.gender === "0")
         validation.push("جنسیت را وارد نکرده اید.");
@@ -384,13 +389,13 @@ const updateUser = (userId = "") => {
         $.when(updateInfo).done(result => {
             if (result.result) {
                 customAlert(["پروفایل آپدیت شد!"], 2000, "success", "Update");
-                return setTimeout(() => window.location.href = userId === "" ? "/dashboard/profile" : "/dashboard/users/"+userId, 2000);
+                return setTimeout(() => window.location.href = userId === "" ? "/dashboard/profile" : "/dashboard/users/" + userId, 2000);
             }
             customAlert(result.error);
         })
         return false;
     }
-    if(userId !== "") {
+    if (userId !== "") {
         updateFormData.append('username', data.username);
         updateFormData.append('avatar', $('#imageHolder').val());
         updateFormData.append('userId', userId);
@@ -422,6 +427,6 @@ const updateUser = (userId = "") => {
         }
 
         customAlert(["پروفایل آپدیت شد!"], 2000, "success", "Update");
-        setTimeout(() => window.location.href = userId === "" ? "/dashboard/profile" : "/dashboard/users/"+userId, 2000);
+        setTimeout(() => window.location.href = userId === "" ? "/dashboard/profile" : "/dashboard/users/" + userId, 2000);
     });
 }

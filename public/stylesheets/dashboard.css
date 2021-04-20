@@ -41,3 +41,22 @@ a, a:hover{
     margin: 5px auto;
 }
 .article img{width: 125px !important}
+.comment-count .badge{
+    top: 3px;
+    left: 15px;
+    width: 20px;
+}
+.comment-count i{
+    font-size: 30px;
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(50,45,167,1) 0%, rgba(123,69,222,1) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.commentContent{
+    display: none;
+}
+.commentContent.showContent{
+    display: contents;
+}
+.btn-primary:focus{background-color: #563dea !important}

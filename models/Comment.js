@@ -7,10 +7,6 @@ const defaultSetting = {
 };
 
 const ArticleSchema = new mongoose.Schema({
-    title: {
-        ...defaultSetting,
-        min: 3
-    },
     content: {
         ...defaultSetting,
         min: 50
@@ -24,6 +20,10 @@ const ArticleSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Article",
         required: true
+    },
+    status: {
+        type: Boolean,
+        default: false
     },
     created_at: {
         type: Date,
@@ -40,4 +40,4 @@ ArticleSchema.pre('findOneAndUpdate', function(next){
     return next();
 });
 
-module.exports = mongoose.model('Article', ArticleSchema);
+module.exports = mongoose.model('Comment', ArticleSchema);

@@ -2,6 +2,7 @@ const router = require('express').Router();
 
 const ArticleController = require('../../controller/ArticleController');
 const UserController = require('../../controller/UserController');
+const CommentController = require('../../controller/CommentController');
 const {adminAccess} = require('../../tools/generalTools');
 
 router.get('/profile', (req, res) => {
@@ -44,5 +45,6 @@ router.get('/test', (req, res) => {
         pageStyle
     });
 });
+router.get('/comments/:article', CommentController.viewArticleComments);
 router.get('/', ArticleController.viewMe);
 module.exports = router;
