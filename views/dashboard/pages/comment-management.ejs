@@ -21,7 +21,11 @@
                 <td>
                     <%= comment.writer.first_name + " " + comment.writer.last_name %>
                 </td>
-                <td><%= comment.article.title %></td>
+                <td>
+                    <a href="/article/<%= comment.article._id %>" target="_blank">
+                        <%= comment.article.title %>
+                    </a>
+                </td>
                 <td><%= comment.created_at %></td>
                 <td><%= comment.status ? "تایید شده" : "در انتظار تایید" %></td>
                 <td data-id="<%= comment._id %>">
@@ -30,17 +34,19 @@
                         <i class="fa fa-eye"></i>
                         نمایش
                     </button>
-                    <button class="btn btn-success acceptComment">
-                        <i class="fa fa-check"></i>
-                        تایید
-                    </button>
+                    <% if( !comment.status ){ %>
+                        <button class="btn btn-success acceptComment">
+                            <i class="fa fa-check"></i>
+                            تایید
+                        </button>
+                    <% } %>
                     <button class="btn btn-danger deleteComment">
                         <i class="fa fa-trash"></i>
                         حذف
                     </button>
                 </td>
             </tr>
-            <tr class="commentContent" data-status="false" >
+            <tr class="commentContent" data-status="false">
                 <td colspan="6">
                     <div class="collapse additional-row" id="<%= comment._id %>">
                         <%- comment.content %>

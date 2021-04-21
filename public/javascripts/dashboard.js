@@ -233,7 +233,6 @@ $(function () {
         const deleteConfirm = confirm("آیا از حذف این مقاله اطمینان دارید؟");
         if (!deleteConfirm) return false;
         const articleId = $(this).data('id');
-        console.log(articleId);
         $.ajax({
             url: "/api/article/delete/" + articleId,
             method: "delete"
@@ -310,7 +309,45 @@ $(function () {
         const id = $(this).parent().data('id');
         const target = $(`#${id}`).parent().parent();
         target.toggleClass('showContent');
-    })
+    });
+    $('.acceptComment').on('click', function(){
+        const commentId = $(this).parent().data('id');
+        const articleId = window.location.href.split('/').pop();
+        if(!confirm("آیا از تایید این نظر اطمینان دارید؟")) return;
+        $.ajax({
+            url: "/api/comment/" + commentId,
+            method: "patch"
+        })
+            .done(result => {
+                if (result.result) {
+                    customAlert(["نظر با موفقیت تایید شد"], 3000, "success", "Accept Comment");
+                    return setTimeout(() => window.location.href = "/dashboard/comments/"+articleId, 3000);
+                }
+                customAlert(result.error);
+            })
+            .fail(err => {
+                customAlert(err.responseText);
+            });
+    });
+    $('.deleteComment').on('click', function(){
+        const commentId = $(this).parent().data('id');
+        const articleId = window.location.href.split('/').pop();
+        if(!confirm("آیا از حذف این نظر اطمینان دارید؟")) return;
+        $.ajax({
+            url: "/api/comment/delete/" + commentId,
+            method: "delete"
+        })
+            .done(result => {
+                if (result.result) {
+                    customAlert(["نظر با موفقیت حذف شد"], 3000, "success", "Delete Comment");
+                    return setTimeout(() => window.location.href = "/dashboard/comments/"+articleId, 3000);
+                }
+                customAlert(result.error);
+            })
+            .fail(err => {
+                customAlert(err.responseJSON ? err.responseJSON.error : err.responseText);
+            });
+    });
 });
 const customAlert = (body, disappear = 0, bg = "danger", title = "Error") => {
     const container = $('.modal-body');

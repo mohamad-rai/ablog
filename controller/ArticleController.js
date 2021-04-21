@@ -138,11 +138,12 @@ exports.viewUserArticles = async (req, res) => {
     const pageScript = ["/javascripts/dashboard.js"];
     if (!articles)
         return res.status(500).json({error: "خطای سرور"});
+    const countedComments = await commentCounter(articles);
     res.render('dashboard/index', {
         title: "Articles",
         page: "article-management",
         pageScript,
-        data: {...req.session.user, articles, clipper}
+        data: {...req.session.user, articles, countedComments, clipper}
     });
 }
 

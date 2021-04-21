@@ -154,6 +154,9 @@ input:active{
   width: 75px;
   margin-left: 5px;
 }
+.comment-content > p > span {
+  background-color: transparent !important;
+}
 @media only screen and (min-width: 600px) {
   .my-container{
     width: 25%;

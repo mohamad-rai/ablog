@@ -99,14 +99,16 @@ $(function () {
             method: "POST"
         })
             .done(result => {
-                if (result.result)
+                if (result.result) {
+                    editor.html.set('');
                     return customAlert(["نظر شما با موفقیت ثبت شد و پس از تایید نمایش داده میشود."], 3000, "success", "Password Update");
+                }
                 customAlert(result.error);
             })
             .fail(error => {
                 customAlert(error.responseJSON.error);
             });
-    })
+    });
     // choose active menu
     const pageRequest = window.location.href.split('/').pop();
     if(pageRequest)
